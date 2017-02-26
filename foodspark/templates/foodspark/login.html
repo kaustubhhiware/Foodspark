@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <title>Animated login form</title>
+</head>
+
+<body>
+
+        <form action='/login/' method="post">
+        {% csrf_token %}
+            <p class="title">Log in</p>
+            <input type="email" name = "email"/>
+            <input type="password" name="password" />
+            <input type="submit" value="Submit" />
+        </form>
+        <br>
+
+         <form action='/signup/' method="post">
+        {% csrf_token %}
+            <p class="title">Log in</p>
+            <input type="email" name = "email"/>
+            <input type="password" name="password" />
+            <input type="phone" name = "phone"/>
+            <input type="name" name="name" />
+            <input type="submit" value="Submit" />
+        </form>
+
+</body>
+</html>
