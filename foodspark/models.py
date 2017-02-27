@@ -8,32 +8,45 @@ import hashlib
 # Create your models here.
 class Restaurant(models.Model):
 	email = models.EmailField(primary_key = True)
+	password = models.CharField(max_length=100)
 	name = models.CharField(max_length=200)
-	# resid = models.CharField(primary_key = True, max_length = 50)
 	address = models.TextField()
-	RES_TYPE = (   ############fill it up##################################################@#
-		('B','Bar'),
-		('R','Restaurant')
-	)
-	res_type = models.CharField(max_length=1,choices = RES_TYPE)
-	cuisine = models.CharField(max_length=100)
-	RATING = (
-		('1','1'),
-		('2','2'),
-		('3','3'),
-		('4','4'),
-		('5','5')
-	)
-	rating = models.CharField(max_length=1,choices = RATING) 
-	city = models.CharField(max_length = 100)
+	# RES_TYPE = (   ############fill it up##################################################@#
+	# 	('B','Bar'),
+	# 	('R','Restaurant'),
+	# 	('C','Cafe')
+	# )
+	# res_type = models.CharField(max_length=1,choices = RES_TYPE)
+	# cuisine = models.CharField(null = True, max_length=100)
+	# RATING = (
+	# 	('1','1'),
+	# 	('2','2'),
+	# 	('3','3'),
+	# 	('4','4'),
+	# 	('5','5')
+	# )
+	# rating = models.CharField(null = True,max_length=1,choices = RATING) 
+	# city = models.CharField(max_length = 100)
 	phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.") #############look into regex
 	phone = models.CharField(validators=[phone_regex],max_length=15,blank = True) 
-	image = models.ImageField() ############################################################
+	# image = models.ImageField(null=True) ############################################################
+	def make_password(self ,password):
+		assert password
+		hashedpassword = hashlib.md5(password).hexdigest()
+		return hashedpassword
+	def check_password(self, password):
+		assert password
+		hashed = hashlib.md5(password).hexdigest()
+		return self.password == hashed
+	def set_password(self, password):
+		self.password = password
 
 class Customer(models.Model):
 	# userid = models.CharField(primary_key = True,max_length =50)
 	password = models.CharField(max_length=100)
 	name = models.CharField(max_length=200)
+	address = models.TextField()
+	city = models.CharField(max_length = 100)
 	email = models.EmailField(primary_key = True)
 	phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.") #############look into regex
 	phone = models.CharField(validators=[phone_regex],max_length=15,blank = True)
