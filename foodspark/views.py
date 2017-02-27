@@ -217,6 +217,34 @@ def search(request):
 	}
 	return render(request,'foodspark/userhome.html',context)
 
+def customerOrderHistory(request):
+	if request.method == "POST":
+		customer = Customer.objects.get(email=request.session['id'])
+		query = Order.objects.all()
+		history = []
+		for x in query:
+			if x.customer_id == customer.email:
+				history.append(x)
+
+def customerOrderCart(request):
+	if request.method == "POST":
+		customer = Customer.objects.get(email=request.session['id'])
+		query = Order.objects.all()
+		history = []
+		for x in query:
+			if x.customer_id == customer.email and x.deliverystatus=='p':
+				history.append(x)
+
+def restaurantOrderHistory(request):
+	if request.method == "POST":
+		restaurant = Restaurant.objects.get(email=request.session['id'])
+		query = Order.objects.all()
+		history = []
+		for x in query:
+			if x.restaurant_id == restaurant.email:
+				history.append(x)
+
+
 def restview(request,restname):
 	context = {
 				'restaurant':Restaurant.objects.get(name=restname)
