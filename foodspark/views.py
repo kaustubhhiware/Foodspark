@@ -104,21 +104,114 @@ def editCustomer(request):
 		# if Customer.objects.filter(email=email).exists():
 		name = request.POST.get('name')
 		phone = request.POST.get('phone')
-		password = request.POST.get('password')
+		#password = request.POST.get('password')
 		address = request.POST.get('address')
+		city = request.POST.get('city')
 		if email == customer.email:
 			customer.name = name #check syntax
-			#fill rest
+			customer.address = address
+			customer.city	= city
+			customer.phone = phone
+			customer.email = email
 		elif Customer.objects.filter(email=email).exist():
 			#email taken
+			print "Email Already taken, email not updated"
+			customer.address = address
+			customer.city	= city
+			customer.phone = phone
+			customer.name = name
+		else :
+			customer.name = name #check syntax
+			customer.address = address
+			customer.city	= city
+			customer.phone = phone
 			customer.email = email
-		#fill rest
+		customer.save()
+		restaurants = Restaurant.objects.order_by('name')
+		context = {
+			'name':customer.name,
+			'restaurants' : restaurants
+			}
+		return render(request,'foodspark/userhome.html',context)
 
 	elif request.method == 'GET':
 		return render(request,'foodspark/')
 
-# def editRestaurant(request):
-	# copy paste edit Customer
+def editRestaurant(request):
+	if request.method == "POST":
+		restaurant = Restaurant.objects.get(email=request.session['id'])
+		email = request.POST.get('email')
+		phone = request.POST.get('phone')
+		address = request.POST.get('address')
+		name = request.POST.get('name')
+		res_type = request.POST.get('res_type')
+		cuisine = request.POST.get('cuisine')
+		city = request.POST.get('city')
+		if email == restaurant.email:
+			restaurant.phone = phone
+			restaurant.address = address
+			restaurant.name = name
+			restaurant.res_type = res_type
+			restaurant.cuisine =cuisine
+			restaurant.city = city
+		elif Restaurant.objects.filter(email=email).exist():
+			#email taken
+	 		print "Email Already taken, email not updated"
+	 		restaurant.phone = phone
+			restaurant.address = address
+			restaurant.name = name
+			restaurant.res_type = res_type
+			restaurant.cuisine =cuisine
+			restaurant.city = city
+		else:
+			restaurant.phone = phone
+			restaurant.address = address
+			restaurant.name = name
+			restaurant.res_type = res_type
+			restaurant.cuisine =cuisine
+			restaurant.city = city
+			restaurant.email = email
+		restaurant.save()
+		return render(request,'foodspark/resthome.html')
+
+	elif request.method == 'GET':
+		return render(request,'foodspark/')
+
+def customerChangePassword(request):
+	if request.method == "POST":
+		customer = Customer.objects.get(email=request.session['id'])
+		oldPassword = request.POST.get('oldPassword')
+		newPassword = request.POST.get('newPassword')
+		if customer.check_password(oldPassword):
+			customer.set_password(customer.make_password(newPassword))
+			print "Password changed"
+		else:
+			print "Old Password is incorrect"
+		customer.save()
+		return render(request,'foodspark/userhome.html')
+
+	elif request.method == 'GET':
+		return render(request,'foodspark/')
+
+def restaurantChangePassword(request):
+	if request.method == "POST":
+		restaurant = Restaurant.objects.get(email=request.session['id'])
+		oldPassword = request.POST.get('oldPassword')
+		newPassword = request.POST.get('newPassword')
+		if restaurant.check_password(oldPassword):
+			restaurant.set_password(restaurant.make_password(newPassword))
+			print "Password changed"
+		else:
+			print "Old Password is incorrect"
+		restaurant.save()
+		return render(request,'foodspark/resthome.html')
+
+	elif request.method == 'GET':
+		return render(request,'foodspark/')
+
+def customerHistory(request):
+	pass
+	
 
 def search(request):
 	print '1'
