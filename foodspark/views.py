@@ -44,8 +44,8 @@ def login(request):
 
 		if customer and customer.check_password(password):
 			print "here2"
-			request.session['id'] = customer.emailid
-			return HttpResponse(json.dumps(response), content_type='application/json')
+			request.session['id'] = customer.email
+			return HttpResponse("hi")#json.dumps(response), content_type='application/json')
 		else:
 			print "here3"
 			return redirect('/')
@@ -60,6 +60,8 @@ def signup(request):
 		email = request.POST.get('email')
 		phone = request.POST.get('phone')
 		password = request.POST.get('password')
+		address = request.POST.get('address')
+		usertype = request.POST.get('usertype')
 		newCustomer = Customer(name = name, email = email, phone = phone)
 		newCustomer.set_password(newCustomer.make_password(password))
 		newCustomer.save()
@@ -68,4 +70,3 @@ def signup(request):
 
 	if request.method == 'GET':
 		return render(request,'foodspark/login.html')
-
