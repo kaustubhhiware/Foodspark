@@ -29,7 +29,7 @@ class Restaurant(models.Model):
 	# city = models.CharField(max_length = 100)
 	phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.") #############look into regex
 	phone = models.CharField(validators=[phone_regex],max_length=15,blank = True) 
-	# image = models.ImageField(null=True) ############################################################
+	image = models.ImageField(default = '/home/projjal/Projects/Foodspark/foodspark/static/img') ############################################################
 	def make_password(self ,password):
 		assert password
 		hashedpassword = hashlib.md5(password).hexdigest()
@@ -92,15 +92,24 @@ class FoodItem(models.Model):
 # 	amount = models.IntegerField()
 # 	discount = models.IntegerField()
 
-# class Order(models.Model):
-# 	customer = models.ForeignKey(Customer,on_delete=models.CASCADE)
-# 	restaurant = models.ForeignKey(Restaurant,on_delete=models.CASCADE)
-# 	# food = models.OneToMany
-# 	amount = models.IntegerField()
-# 	ordertime = models.TimeField()
-# 	STATUS = (
-# 		('p','Pending'),
-# 		('d','Delivered')
-# 	)
-# 	paymentstatus = models.CharField(max_length=1,choices=STATUS)
-# 	
+class Order(models.Model):
+ 	customer = models.ForeignKey(Customer,on_delete=models.CASCADE)
+ 	restaurant = models.ForeignKey(Restaurant,on_delete=models.CASCADE)
+ 	# foodlist = models.Comma
+ 	amount = models.IntegerField()
+	ordertime = models.TimeField()
+	DSTATUS = (
+		('p','Pending'),
+		('d','Delivered')
+	)
+	deliverystatus = models.CharField(max_length=1,choices=DSTATUS)
+	PSTATUS = (
+		('P','Paid'),
+		('N','Not Paid')
+	)
+	paymentstatus = models.CharField(max_length=1,choices=PSTATUS)
+
+	# def calamount(self):
+
+
+	

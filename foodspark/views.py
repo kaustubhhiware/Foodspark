@@ -4,7 +4,7 @@ from models import *
 import json
 from django.views.decorators import csrf
 from django.views.decorators.csrf import ensure_csrf_cookie
-
+from django.contrib import messages
 
 # Create your views here.
 
@@ -45,7 +45,9 @@ def login(request):
 				request.session['type'] = 'customer'
 				return redirect('/')
 			else:
-				return HttpResponse('password incorrect')
+				messages.error(request,'Password Incorrect')
+				print 'here'
+				return redirect('/')
 
 		if restaurant:
 			if restaurant.check_password(password):
@@ -53,7 +55,9 @@ def login(request):
 				request.session['type'] = 'restaurant'
 				return redirect('/')
 			else:
-				return HttpResponse('password incorrect')				
+				messages.error(request,'Password Incorrect')
+				print 'here'
+				return redirect('/')
 
 	elif request.method == 'GET':
 		return render(request,'foodspark/login.html')
@@ -85,6 +89,14 @@ def signup(request):
 	if request.method == 'GET':
 		return render(request,'foodspark/login.html')
 
+def logout(request):
+	try:
+		del request.session['id']
+		del request.session['type']
+	except KeyError:
+		pass
+	return render(request, 'foodspark/login.html')
+
 def editCustomer(request):
 	if request.method == 'POST':
 		customer = Customer.objects.get(email=request.session['id'])
@@ -108,3 +120,13 @@ def editCustomer(request):
 # def editRestaurant(request):
 	# copy paste edit Customer
 
+def search(request):
+	print '1'
+	print request.body
+	searchkey = request.GET.get('search')
+	restaurants = Restaurant.objects.filter(name__contains=searchkey)
+	context = {
+		'name':Customer.objects.get(email=request.session['id']).name,
+		'restaurants' : restaurants
+	}
+	return render(request,'foodspark/userhome.html',context)
