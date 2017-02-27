@@ -83,7 +83,7 @@
                 <div id="custom_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom_modalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <div class="modal-body" ng-controller="loginController">
+                            <div class="modal-body">
                                 <form class="login" action='/login/' method="post">
                                     {% csrf_token %}
                                     <p class="title">Log in</p>
@@ -128,7 +128,7 @@
                                         </datalist></div>
                                     <input type="password" name="password" placeholder="Password" ng-model="user.password" required />
                                     <i class="fa fa-key"></i>
-                                    <button class="btn btn-lg btn-success btn-block" type="submit" ng-click="SignUpForm.$valid && SignUpForm.$dirty && addStudent()" a href="#">
+                                    <button class="btn btn-lg btn-success btn-block" type="submit" a href="#">
 	                                    <i class="spinner"></i>
 	                                    <span class="state">Create Account</span>
                                     </button>
