@@ -72,6 +72,13 @@
             <div class="intro-text">
                 <div class="intro-lead-in">Welcome To foodspark!</div>
                 <div class="intro-heading">What you crave</div>
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <div class="alert alert-danger"> <!--{% if message.tags %} class="{{ message.tags }}"{% endif %}>-->{{ message }}</div>
+                    {% endfor %}
+                </ul>
+                {% endif %}
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#custom_modal">Login</button>
                 <div id="custom_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom_modalLabel" aria-hidden="true">
                     <div class="modal-dialog">

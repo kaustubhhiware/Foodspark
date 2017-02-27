@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404,render, redirect
 from django.http import HttpResponse
 from models import *
 import json
@@ -33,8 +33,12 @@ def login(request):
 		password = request.POST.get('password')
 		try:
 			customer = Customer.objects.get(email=email)
-		except DoesNotExist:
-			restaurant = get_object_or_404(Restaurant, email=email)
+		except:
+			try:
+				restaurant = get_object_or_404(Restaurant, email=email)
+			except:
+				messages.error(request,'No Customer or Restaurant is registered with this email')
+				return redirect('/')
 
 		if customer:
 			if customer.check_password(password):
@@ -43,7 +47,6 @@ def login(request):
 				return redirect('/')
 			else:
 				messages.error(request,'Password Incorrect')
-				print 'here'
 				return redirect('/')
 
 		if restaurant:
@@ -53,7 +56,6 @@ def login(request):
 				return redirect('/')
 			else:
 				messages.error(request,'Password Incorrect')
-				print 'here'
 				return redirect('/')
 
 	elif request.method == 'GET':
@@ -62,8 +64,6 @@ def login(request):
 def signup(request): 
 	if request.method == 'POST':
 		email = request.POST.get('email')
-		# if Customer.objects.filter(email=email).exists():
-
 		name = request.POST.get('name')
 		phone = request.POST.get('phone')
 		password = request.POST.get('password')
@@ -90,6 +90,7 @@ def logout(request):
 	try:
 		del request.session['id']
 		del request.session['type']
+		request.session.modified = True
 	except KeyError:
 		pass
 	return render(request, 'foodspark/login.html')
@@ -98,10 +99,8 @@ def editCustomer(request):
 	if request.method == 'POST':
 		customer = Customer.objects.get(email=request.session['id'])
 		email = request.POST.get('email')
-		# if Customer.objects.filter(email=email).exists():
 		name = request.POST.get('name')
 		phone = request.POST.get('phone')
-		#password = request.POST.get('password')
 		address = request.POST.get('address')
 		city = request.POST.get('city')
 		if email == customer.email:
@@ -112,7 +111,6 @@ def editCustomer(request):
 			customer.email = email
 		elif Customer.objects.filter(email=email).exist():
 			print "email taken"
-			# messages.error(request)
 			customer.address = address
 			customer.city	= city
 			customer.phone = phone
