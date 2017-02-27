@@ -9,12 +9,6 @@ from django.contrib import messages
 # Create your views here.
 
 def home(request):
-	# if 'id' in request.session.keys():
-	# 	customer = Customer.objects.get(email = request.session['id'])
-	# 	if (customer is not None):
-	# 		return render(request, ) #...................
-	# 	return render(request,) #.............
-	# else:
 	if 'id' in request.session.keys():
 		if request.session['type'] == 'customer':
 			restaurants = Restaurant.objects.order_by('name')
@@ -24,7 +18,10 @@ def home(request):
 			}
 			return render(request,'foodspark/userhome.html',context)
 		elif request.session['type'] == 'restaurant':
-			return render(request,'foodspark/resthome.html')
+			context = {
+				'name':Restaurant.objects.get(email=request.session['id']).name
+			}
+			return render(request,'foodspark/restprofile.html',context)
 	else:
 		return render(request,"foodspark/login.html")
 
@@ -114,8 +111,8 @@ def editCustomer(request):
 			customer.phone = phone
 			customer.email = email
 		elif Customer.objects.filter(email=email).exist():
-			#email taken
-			print "Email Already taken, email not updated"
+			print "email taken"
+			# messages.error(request)
 			customer.address = address
 			customer.city	= city
 			customer.phone = phone
@@ -172,7 +169,7 @@ def editRestaurant(request):
 			restaurant.city = city
 			restaurant.email = email
 		restaurant.save()
-		return render(request,'foodspark/resthome.html')
+		return render(request,'home/')
 
 	elif request.method == 'GET':
 		return render(request,'foodspark/')
@@ -204,18 +201,16 @@ def restaurantChangePassword(request):
 		else:
 			print "Old Password is incorrect"
 		restaurant.save()
-		return render(request,'foodspark/resthome.html')
+		return render(request,'home/')
 
 	elif request.method == 'GET':
-		return render(request,'foodspark/')
+		return render(request,'home/')
 
 def customerHistory(request):
 	pass
 	
 
 def search(request):
-	print '1'
-	print request.body
 	searchkey = request.GET.get('search')
 	restaurants = Restaurant.objects.filter(name__contains=searchkey)
 	context = {
@@ -223,3 +218,9 @@ def search(request):
 		'restaurants' : restaurants
 	}
 	return render(request,'foodspark/userhome.html',context)
+
+def restview(request,restname):
+	context = {
+				'restaurant':Restaurant.objects.get(name=restname)
+	}
+	return render(request,'foodspark/restprofile.html',context)
