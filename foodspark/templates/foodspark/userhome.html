@@ -31,26 +31,26 @@
             <span class="navbar-left" style="font-size:1.2em;"><img src="/static/img/logo.gif" class="logo_bitch"/>   FOODSPARK</span>
 
             <!-- Search bar -->
-            <div class="input-group" style="height: 100%;">
+            <form class="input-group" style="height: 100%;" action="/search/" method="get">
                 <div class="input-group-btn search-panel">
-                    <button type="button" class="btn btn-outline-secondary dropdown-toggle navbar-btn usersearchbtn1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span id="search_concept">Any</span></button>
+                    <button type="button" class="btn btn-outline-secondary dropdown-toggle navbar-btn usersearchbtn1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                        <span id="search_concept" >All</span></button>
                     <ul class="dropdown-menu scrollable-dropdown" aria-labelledby="usersearchbtn1" style="margin-top: -36px;">
-                        <li><a href="#">Any</li>
+                        <li><a href="#">All</li>
                         <li><a href="#">Restaurant</li>
                         <li><a href="#">Food</li>
                         <li><a href="#">Cuisine</li>
                         <li><a href="#">City</li>
                     </ul>
                 </div>
-                <input type="hidden" name="search_param" value="all" id="search_param" />
-                <input type="text" class="form-control" name="x" id="usersearch" placeholder="Search" />
+                <input type="hidden" name="search_param" value="All" id="search_param" />
+                <input type="text" class="form-control" name="search" id="usersearch" placeholder={% if searchkey %}{{searchkey}} {% else %} "Search" {%endif%} />
                 <span class="input-group-btn">
                     <button class="btn btn-outline-secondary navbar-btn usersearchbtn" type="button">
                         <span class="glyphicon glyphicon-search" ></span>
                     </button>
                 </span>
-            </div>
+            </form>
 
         </div>
     </nav>
@@ -195,7 +195,8 @@
            var param = $(this).attr("href").replace("#","");
            var concept = $(this).text();
            $('.search-panel span#search_concept').text(concept);
-           $('.input-group #search_param').val(param);
+           $('.input-group #search_param').val(concept);
+
        });
      });
     </script>

@@ -95,27 +95,32 @@
                             </div>
                             <div style="padding-top:60px;"></div>
                         </div>
-
+                        {% if history %}
+                        {% for x,z in history.items %}
                          <div class="card">
                             <div class="card-header">
                             Previous Orders
                                 <span style="float:right;">
-                                <i class="glyphicon glyphicon-time blueicon ordercard"></i> Date
-                                <i class="glyphicon glyphicon-cutlery blueicon ordercard"></i> Restaurant_name
+                                <i class="glyphicon glyphicon-time blueicon ordercard"></i> {{x.ordertime}}
+                                <i class="glyphicon glyphicon-cutlery blueicon ordercard"></i> {{z}}
                                 </span>
                             </div>
+                            {% for y in x.getfooditems %}
                             <div class="card-block terabaaphumain">
                                 <div class="lefty">
-                                    <h4 class="card-title">Food item x Quantity, </h4>
-                                    <p class="card-text">Total</p>
+                                    <h4 class="card-title">{{y.name}} </h4>
+                                    <p class="card-text">{{y.price}}</p>
                                 </div>
 
                             </div>
                             <div style="padding-top:60px;"></div>
+                            {%endfor%}
                         </div>
 
                         <div style="padding-top:50px;"></div>
 
+                        {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
             </div>

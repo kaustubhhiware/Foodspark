@@ -14,7 +14,7 @@ class Restaurant(models.Model):
 	password = models.CharField(max_length=100)
 	name = models.CharField(max_length=200)
 	address = models.TextField()
-	RES_TYPE = (   ############fill it up##################################################@#
+	RES_TYPE = ( 
 		('B','Bar'),
 		('R','Restaurant'),
 		('C','Cafe')
@@ -28,7 +28,8 @@ class Restaurant(models.Model):
 	# 	('4','4'),
 	# 	('5','5')
 	# )
-	#rating = models.CharField(null = True,max_length=1,choices = RATING) 
+	# rating = models.CharField(null = True,max_length=1,choices = RATING)
+	# countrating = models.IntegerField(default = 0) 
 	city = models.CharField(max_length = 100,null = True)
 	phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.") #############look into regex
 	phone = models.CharField(validators=[phone_regex],max_length=15,blank = True) 
@@ -73,9 +74,6 @@ class Customer(models.Model):
 			'phone' : self.phone
 		}
 
-#class Admin(models.Model):   #######################
-#	adminid = models.ForeignKey(Customer,on_delete=models.CASCADE,primary_key=True)
-
 class FoodItem(models.Model):
 	resid = models.ForeignKey(Restaurant,on_delete=models.CASCADE)
 	name = models.CharField(max_length=500)
@@ -88,12 +86,9 @@ class FoodItem(models.Model):
 	course = models.CharField(max_length=1,choices=COURSE)
 	price = models.IntegerField()
 	availability_time = models.TimeField()
-	image = models.ImageField(null = True) ###########################################################
+	# ordercount = models.IntegerField(default = 0)
+	# image = models.ImageField(null = True) ###########################################################
 	# group = models.ForeignKey()
-
-# class Payment(models.Model):
-# 	amount = models.IntegerField()
-# 	discount = models.IntegerField()
 
 class Order(models.Model):
  	customer = models.ForeignKey(Customer,on_delete=models.CASCADE)
@@ -120,6 +115,12 @@ class Order(models.Model):
 			fitem = FoodItem.objects.get(pk=int(x))
 			self.amount = self.amount + fitem.price
 
+	def getfooditems(self):
+		myl = self.foodlist.split(",")
+		items = []
+		for x in myl:
+			items.append(FoodItem.objects.get(pk=int(x)))
+		return items
 
 
 	

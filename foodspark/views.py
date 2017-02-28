@@ -191,10 +191,12 @@ def changePassword(request):
 
 def search(request):
 	searchkey = request.GET.get('search')
+	searchtype = request.GET.get('search_param')
 	restaurants = Restaurant.objects.filter(name__contains=searchkey)
 	context = {
 		'customer':Customer.objects.get(email=request.session['id']),
-		'restaurants' : restaurants
+		'restaurants' : restaurants,
+		'searchkey' : searchkey
 	}
 	return render(request,'foodspark/userhome.html',context)
 
@@ -204,14 +206,6 @@ def customerOrderHistory(request):
 	history = []
 	for x in query:
 		if x.customer_id == customer.email:
-			history.append(x)
-
-def customerOrderCart(request):
-	customer = Customer.objects.get(email=request.session['id'])
-	query = Order.objects.all()
-	history = []
-	for x in query:
-		if x.customer_id == customer.email and x.deliverystatus=='p':
 			history.append(x)
 
 def restaurantOrderHistory(request):
@@ -258,8 +252,20 @@ def makepayment(request):
 
 def history(request):
 	if 'id' in request.session.keys():
+		customer = Customer.objects.get(email=request.session['id'])
+		query = Order.objects.all()
+		restaurants = Restaurant.objects.all()
+		history = {}
+		rests = []
+
+		for x in query:
+			if x.customer_id == customer.email:
+				y = restaurants.get(email=x.restaurant.email)
+				history[x] = y.name
+
 		context = {
-				'customer':Customer.objects.get(email=request.session['id']),
+				'customer': customer,
+				'history' : history,
 		}
 		return render(request,"foodspark/userhistory.html",context)
 	else:
@@ -267,9 +273,19 @@ def history(request):
 
 def cart(request):
 	if 'id' in request.session.keys():
+		customer = Customer.objects.get(email=request.session['id'])
+		query = Order.objects.all()
+		history = []
+		for x in query:
+			if x.customer_id == customer.email and x.deliverystatus=='p':
+				history.append(x)
 		context = {
-				'customer':Customer.objects.get(email=request.session['id']),
+				'customer': customer,
+				'cart' : history
 		}
 		return render(request,"foodspark/ordercart.html",context)
 	else:
 		return render(request,"foodspark/login.html")
+
+def recommendedRests():
+	pass
