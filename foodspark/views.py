@@ -249,4 +249,4 @@ def restview(request,restname):
 	context = {
 				'restaurant':Restaurant.objects.get(name=restname)
 	}
-	return render(request,'foodspark/restprofile.html',context)
+	return render(request,'foodspark/restview.html',context)
