@@ -106,30 +106,31 @@
                 <div id="custom_modal2" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom_modalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <div class="modal-body">
-                                <form name="SignUpForm" class="signup" novalidate>
+                            <div class="modal-body" ng-controller="signController">
+                                <form name="SignUpForm" class="signup" action='/signup/' method="post">
+                                    {% csrf_token %}
                                     <p class="title">Enter Details</p>
-                                    <input type="text" placeholder="Name" required autofocus />
+                                    <input type="text" name="name" placeholder="Name" ng-model="user.firstname" required autofocus />
                                     <i class="fa fa-user"></i>
-                                    <!--<input type="text" placeholder="Lastname" equired autofocus/>
+                                    <!--<input type="text" placeholder="Lastname" ng-model="user.lastname" required autofocus/>
                                     <i class="fa fa-user"></i>-->
-                                    <input type="text" placeholder="Email" requuired autofocus/>
+                                    <input type="email" name="email" placeholder="Email" ng-model="user.mail" requuired autofocus/>
                                     <i class="fa fa-user"></i>
-                                    <input type="number" min="100000000" placeholder="Phone Number" required autofocus/>
+                                    <input type="number" name="phone" min="100000000" placeholder="Phone Number" ng-model="user.number" required autofocus/>
                                     <i class="fa fa-user"></i>
-                                    <input type="text" placeholder="Address" required autofocus/>
+                                    <input type="text" name="address" placeholder="Address" ng-model="user.dob" required autofocus/>
                                     <i class="fa fa-user"></i>
                                     <div style="font color:black; align:left">
-                                    <input list="users" name="User Type" placeholder="User Type">
+                                    <input list="users" name="usertype" ng-model="user.isfaculty" placeholder="User Type">
                                         <datalist id="users">
                                             <option value="Customer">
                                             <option value="Restaurant">
                                         </datalist></div>
-                                    <input type="password" placeholder="Password" required />
+                                    <input type="password" name="password" placeholder="Password" required />
                                     <i class="fa fa-key"></i>
                                     <button class="btn btn-lg btn-success btn-block" type="submit" a href="#">
-	                                    <i class="spinner"></i>
-	                                    <span class="state">Create Account</span>
+                                        <i class="spinner"></i>
+                                        <span class="state">Create Account</span>
                                     </button>
                                 </form>
                             </div>

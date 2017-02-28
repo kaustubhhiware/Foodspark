@@ -8,8 +8,8 @@
     <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="/static/img/logo.ico">
-    <title>Restaurant details Foodspark</title>
+    <link rel="shortcut icon" href="img/logo.ico">
+    <title>Order Cart Foodspark</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -37,7 +37,7 @@
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
                     <a href="#">
-                        Hello, rest # name
+                        Hello, user #name
                     </a>
                 </li>
                 <li>
@@ -47,7 +47,7 @@
                     <a href="#">Order History</a>
                 </li>
                 <li>
-                    <a href="#">Update profile</a>
+                    <a href="#">Order Cart</a>
                 </li>
                 <li>
                     <a href="#">Log out</a>
@@ -70,32 +70,22 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12" style="padding:0; margin:0;">
-                        <img src="img/back_rest.jpg" class="cover_photo">
+                        <!-- <img src="img/back_rest.jpg" class="cover_photo"> -->
 
                         <div class= "rest_details">
-                            <h1 style="text-align:center;">Restaurant name</h1>
-
-                            <i class="glyphicon glyphicon-map-marker blueicon"></i> : Azad Hall, IIT Kharagpur
-                            <p class="rightfloat" style="padding-right:20px;">
-                                <i class="glyphicon glyphicon-earphone blueicon"></i> : 123454</p>
-                            <br />
-                            <span style="padding-left:200px;">
-                                <i class="glyphicon glyphicon-time blueicon"></i> :10:00 - 22:00
-                            </span>
-                            <p class="rightfloat">
-                                <i class="glyphicon glyphicon-cutlery blueicon"></i> : Chinese</p>
+                            <h1 style="text-align:center;">Order Cart</h1>
 
                             <hr class="liner"/>
                             <div id="terabaaphumain">
 
                                 <div class="foodtable lefty">
-                                    <h2>Cuisine: Chinese</h2>
+                                    <h2>Restaurant : rest_name</h2>
                                     <table class="table">
                                         <thead>
                                             <tr><b>
                                                 <th>Item Name</th>
                                                 <th>Price</th>
-                                                <th>Remove</th>
+                                                <th>Quantity</th>
                                             </b></tr>
                                         </thead>
                                         <tbody>
@@ -103,39 +93,36 @@
                                                 <td>Chow</td>
                                                 <td>70</td>
                                                 <td>
-                                                    <button type="button" id="order1" class="btn btn-primary btn-circle decrement">
-                                                    <span class="glyphicon glyphicon-minus"></span>
-                                                    </button>
+                                                2
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Hakka</td>
                                                 <td>50</td>
                                                 <td>
-                                                    <button type="button" id="order1" class="btn btn-primary btn-circle decrement">
-                                                    <span class="glyphicon glyphicon-minus"></span>
-                                                    </button>
+                                                7
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Pom</td>
                                                 <td>60</td>
-                                                <td>
-                                                    <button type="button" id="order1" class="btn btn-primary btn-circle decrement">
-                                                    <span class="glyphicon glyphicon-minus"></span>
-                                                    </button>
+                                                <td> 6
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
 
-                                    <h2>Cuisine: Indian</h2>
+                                    <div style="margin-top:60px;">
+                                    </div>
+
+                                    <h2>Restaurant : rest_name2</h2>
+
                                     <table class="table">
                                         <thead>
                                             <tr><b>
                                                 <th>Item Name</th>
                                                 <th>Price</th>
-                                                <th>Remove</th>
+                                                <th>Quantity</th>
                                             </b></tr>
                                         </thead>
                                         <tbody>
@@ -143,27 +130,21 @@
                                                 <td>Paneer</td>
                                                 <td>70</td>
                                                 <td>
-                                                    <button type="button" id="order1" class="btn btn-primary btn-circle decrement">
-                                                    <span class="glyphicon glyphicon-minus"></span>
-                                                    </button>
+                                                5
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Roti</td>
                                                 <td>5</td>
                                                 <td>
-                                                    <button type="button" id="order1" class="btn btn-primary btn-circle decrement">
-                                                    <span class="glyphicon glyphicon-minus"></span>
-                                                    </button>
+                                                3
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Rice</td>
                                                 <td>60</td>
                                                 <td>
-                                                    <button type="button" id="order1" class="btn btn-primary btn-circle decrement">
-                                                    <span class="glyphicon glyphicon-minus"></span>
-                                                    </button>
+                                                3
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -172,10 +153,10 @@
 
 
                                 <div class="carttable recommend offset8" style="float:right;padding-bottom:20px !important;">
-                                    <h4 class="recoh">New Item</h4>
+                                    <h4 class="recoh">Check Out</h4>
                                     <hr class="liner" />
                                     <button class="btn btn-primary"  data-toggle="modal" data-target="#addmenu">
-                                        Add to menu
+                                        Make payment
                                     </button>
 
                                     <div id="addmenu" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom_modalLabel" aria-hidden="true">
@@ -183,20 +164,20 @@
                                             <div class="modal-content">
                                                 <div class="modal-body">
                                                     <form name="newMenuForm" class="signup" novalidate>
-                                                        <p class="title">Enter Item Details</p>
-                                                        <input type="text" placeholder="Name" required autofocus />
+                                                        <p class="title">Payment Details</p>
+                                                        <input type="text" placeholder="Bank" required autofocus />
                                                         <i class="fa fa-user"></i>
                                                         <!--<input type="text" placeholder="Lastname" equired autofocus/>
                                                         <i class="fa fa-user"></i>-->
-                                                        <input type="text" placeholder="Cuisine" requuired autofocus/>
+                                                        <input type="text" placeholder="Card Number" requuired autofocus/>
                                                         <i class="fa fa-user"></i>
-                                                        <input type="text" placeholder="Course" required autofocus/>
+                                                        <input type="text" placeholder="CVV" required autofocus/>
                                                         <i class="fa fa-user"></i>
-                                                        <input type="number" min="0" placeholder="Price" required autofocus/>
+                                                        <input readonly  placeholder="1000" />
                                                         <i class="fa fa-user"></i>
                                                         <button class="btn btn-lg btn-success btn-block" type="submit" a href="#">
                     	                                    <i class="spinner"></i>
-                    	                                    <span class="state">Create Item</span>
+                    	                                    <span class="state">Make payment</span>
                                                         </button>
                                                     </form>
                                                 </div>
