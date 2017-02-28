@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en" ng-app="foodspark">
+<html lang="en">
 
 <head>
 	<meta charset="utf-8">
@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="Kaustubh, Aditya, Sayan, Sourav, Projjal">
-
+    <link rel="shortcut icon" href="img/logo.ico">
     <title>Food, but faster! </title>
 
     <!-- Bootstrap Core CSS -->
@@ -16,7 +16,6 @@
 
     <!-- Custom CSS -->
     <link href="css/agency.css" rel="stylesheet">
-    <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js"></script>
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
@@ -24,7 +23,7 @@
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <!-- <link rel="stylesheet" href="css/normalize.css"> -->
 
 <style>
@@ -49,10 +48,12 @@
         <div class="container">
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="hidden">
-                        <a href="#page-top"></a>
+                <ul class="nav navbar-nav navbar-left">
+                    <li>
+                        <img class="logo_login" src="img/logo.gif" style="width:50px; height:50px;"/>
                     </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
                     <li>
                         <a class="page-scroll" href="#page-top">Home</a>
                     </li>
@@ -83,15 +84,15 @@
                 <div id="custom_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom_modalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <div class="modal-body" ng-controller="loginController">
+                            <div class="modal-body">
                                 <form class="login">
                                     <p class="title">Log in</p>
-                                    <input type="text" placeholder="Email" ng-model="user.mail" required autofocus/>
+                                    <input type="text" placeholder="Email" required autofocus/>
                                     <i class="fa fa-user"></i>
-                                    <input type="password" placeholder="Password" ng-model="user.password" required />
+                                    <input type="password" placeholder="Password" required />
                                     <i class="fa fa-key"></i>
                                     <a href="#" class = "title" style="font-color:blue;">Forgot your password?</a>
-                                    <button class="btn btn-lg btn-success btn-block" type="submit" ng-click="checkauth()" a href="#">
+                                    <button class="btn btn-lg btn-success btn-block" type="submit" a href="#">
                                         	<i class="spinner"></i>
                                         	<span class="state">GO</span>
                                     </button>
@@ -105,21 +106,21 @@
                 <div id="custom_modal2" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom_modalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <div class="modal-body" ng-controller="signController">
+                            <div class="modal-body">
                                 <form name="SignUpForm" class="signup" novalidate>
                                     <p class="title">Enter Details</p>
-                                    <input type="text" placeholder="Name" ng-model="user.firstname" required autofocus />
+                                    <input type="text" placeholder="Name" required autofocus />
                                     <i class="fa fa-user"></i>
-                                    <!--<input type="text" placeholder="Lastname" ng-model="user.lastname" required autofocus/>
+                                    <!--<input type="text" placeholder="Lastname" equired autofocus/>
                                     <i class="fa fa-user"></i>-->
-                                    <input type="text" placeholder="Email" ng-model="user.mail" requuired autofocus/>
+                                    <input type="text" placeholder="Email" requuired autofocus/>
                                     <i class="fa fa-user"></i>
-                                    <input type="number" min="100000000" placeholder="Phone Number" ng-model="user.number" required autofocus/>
+                                    <input type="number" min="100000000" placeholder="Phone Number" required autofocus/>
                                     <i class="fa fa-user"></i>
-                                    <input type="text" placeholder="Address" ng-model="user.dob" required autofocus/>
+                                    <input type="text" placeholder="Address" required autofocus/>
                                     <i class="fa fa-user"></i>
                                     <div style="font color:black; align:left">
-                                    <input list="users" name="User Type" ng-model="user.isfaculty" placeholder="User Type">
+                                    <input list="users" name="User Type" placeholder="User Type">
                                         <datalist id="users">
                                             <option value="Customer">
                                             <option value="Restaurant">
