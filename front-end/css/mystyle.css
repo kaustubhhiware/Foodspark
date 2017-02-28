@@ -1,3 +1,9 @@
+.logo_login
+{
+    width:60px;
+    height:60px;
+}
+
 .logo_bitch
 {
     width:10%;
@@ -115,10 +121,21 @@ h1 .rest_details{
     width:100%;
 }
 
+.terabaaphumain{
+    padding: 0px;
+    width:100%;
+}
+
 .lefty{
     float: left;
     width:74%;
     padding-right: 20px;
+}
+
+.righty{
+    float: left !important;
+    width:25%;
+    padding-right: 0px;
 }
 
 .recommend{
@@ -147,4 +164,14 @@ h1 .rest_details{
   border-radius: 15px;
   margin-left: 10px;
   margin-right: 10px;
+}
+
+.ordercard{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.confirmation{
+    float: right;
+    margin-right: 10px;
 }
