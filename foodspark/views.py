@@ -8,7 +8,8 @@ from django.contrib import messages
 
 ### TODO
 # check 'id' in session for all views
-# modify edit methods to remove old objects
+# modify edit methods to remove old objects...old objects are not removed from database
+###
 
 def home(request):
 	if 'id' in request.session.keys():
@@ -222,6 +223,11 @@ def restview(request,restname):
 		try:
 			customer = Customer.objects.get(email=request.session['id'])
 			restaurant =Restaurant.objects.get(name=restname)
+			foodall = FoodItem.objects.all()
+			fooditems = {}
+			for x in fooditems:
+				if x.resid == restaurant.email:
+					fooditems[x]
 			context = {
 				'customer' : customer,
 				'restaurant': restaurant,
@@ -256,7 +262,6 @@ def history(request):
 		query = Order.objects.all()
 		restaurants = Restaurant.objects.all()
 		history = {}
-		rests = []
 
 		for x in query:
 			if x.customer_id == customer.email:
