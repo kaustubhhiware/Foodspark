@@ -10,6 +10,11 @@
     height:10%;
 }
 
+.navbar-left{
+    width: 225px;
+}
+
+
 .navbar-fixed-top{
     line-height:60px;
     height:60px;
@@ -174,4 +179,31 @@ h1 .rest_details{
 .confirmation{
     float: right;
     margin-right: 10px;
+}
+
+.scrollable-dropdown{
+    height: auto;
+    max-height:320px;  /* Increase / Decrease value as per your need */
+    overflow-x: hidden;
+    padding-top: 0;
+}
+
+#usersearch{
+    width: 90%;
+}
+
+.usersearchbtn{
+    margin: 0;
+    margin-top: -16px;
+    padding: 0;
+    height: 34px;
+    background-color:
+
+}
+
+.usersearchbtn1{
+    margin: 0;
+    margin-top: -36px;
+    padding: 0;
+    height: 34px;
 }
