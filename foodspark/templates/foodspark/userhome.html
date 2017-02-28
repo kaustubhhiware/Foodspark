@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="img/logo.ico">
+    <link rel="shortcut icon" href="/static/img/logo.ico">
 
     <title>Home Foodspark</title>
 
@@ -28,7 +28,7 @@
     <!-- navbar centred text vertically with  line-height-->
     <nav class="navbar navbar-nav navbar-default navbar-fixed-top" style="line-height:50px;height:60px;">
         <div class="container" style="margin:0 !important;">
-            <span class="navbar-left" style="font-size:1.2em;"><img src="img/logo.gif" class="logo_bitch"/>   FOODSPARK</span>
+            <span class="navbar-left" style="font-size:1.2em;"><img src="/static/img/logo.gif" class="logo_bitch"/>   FOODSPARK</span>
 
             <form class="navbar-form navbar-center" role="search" action="/search/" method="get">
                     <div class="form-group inner-addon right-addon">
@@ -48,17 +48,17 @@
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
                     <a href="#">
-                        Hello, {{name}}
+                        Hello, {{customer.name}}
                     </a>
                 </li>
                 <li>
                     <a href="/details/">Details</a>
                 </li>
                 <li>
-                    <a href="#">Order History</a>
+                    <a href="/history/">Order History</a>
                 </li>
                 <li>
-                    <a href="#">Order Cart</a>
+                    <a href="/cart/">Order Cart</a>
                 </li>
                 <li>
                     <a href="/logout/">Log out</a>
@@ -127,7 +127,7 @@
                                 <div class="card" style="width: 15rem;">
                                     <img class="card-img-top" src="/static/img/bg1.jpg" alt="Card image cap">
                                     <div class="card-block">
-                                        <h4 class="card-title"><a href = "/{{restaurant.name}}">{{restaurant.name}}</a></h4>
+                                        <h4 class="card-title"><a href = "/restaurant/{{restaurant.name}}">{{restaurant.name}}</a></h4>
 
                                     </div>
                                 </div>

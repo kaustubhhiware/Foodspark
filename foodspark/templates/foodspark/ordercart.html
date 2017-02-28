@@ -9,13 +9,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="/static/img/logo.ico">
-    <title>Restaurant details Foodspark</title>
+    <title>Order Cart Foodspark</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="/static/css/jquery-clockpicker.min.css" rel="stylesheet">
+    <link href="/static/css/agency2.css" rel="stylesheet">
     <link href="/static/css/mystyle.css" rel="stylesheet">
     <link href="/static/css/simple-sidebar.css" rel="stylesheet">
 
@@ -23,13 +23,10 @@
 
 <body>
     <!-- navbar centred text vertically with  line-height-->
-    <nav class="navbar navbar-nav navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-nav navbar-default navbar-fixed-top" style="line-height:60px;height:60px;background-color: #f8f8f8 !important;">
         <div class="container" style="margin:0 !important;">
             <span class="navbar-left" style="font-size:1.2em;"><img src="/static/img/logo.gif" class="logo_bitch"/>   FOODSPARK</span>
 
-            <!--<div class="nav navbar-nav navbar-right">
-               <a  href="#"> Log out</a>
-            </div>-->
         </div>
     </nav>
 
@@ -50,7 +47,7 @@
                     <a href="/history/">Order History</a>
                 </li>
                 <li>
-                    <a href="/cart/">Order Cart</a>
+                    <a href="#">Order Cart</a>
                 </li>
                 <li>
                     <a href="/logout/">Log out</a>
@@ -73,33 +70,22 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12" style="padding:0; margin:0;">
-                        <img src="/static/img/back_rest.jpg" class="cover_photo">
+                        <!-- <img src="/static/img/back_rest.jpg" class="cover_photo"> -->
 
                         <div class= "rest_details">
-                            <h1 style="text-align:center;">Restaurant name</h1>
-
-                            <i class="glyphicon glyphicon-map-marker blueicon"></i> : Azad Hall, IIT Kharagpur
-                            <p class="rightfloat" style="padding-right:20px;">
-                                <i class="glyphicon glyphicon-earphone blueicon"></i> : 123454</p>
-                            <br />
-                            <span style="padding-left:200px;">
-                                <i class="glyphicon glyphicon-time blueicon"></i> :10:00 - 22:00
-                            </span>
-                            <p class="rightfloat">
-                                <i class="glyphicon glyphicon-cutlery blueicon"></i> : Chinese</p>
+                            <h1 style="text-align:center;">Order Cart</h1>
 
                             <hr class="liner"/>
-
                             <div id="terabaaphumain">
 
                                 <div class="foodtable lefty">
-                                    <h2>Cuisine: Chinese</h2>
+                                    <h2>Restaurant : rest_name</h2>
                                     <table class="table">
                                         <thead>
                                             <tr><b>
                                                 <th>Item Name</th>
                                                 <th>Price</th>
-                                                <th>Add Item</th>
+                                                <th>Quantity</th>
                                             </b></tr>
                                         </thead>
                                         <tbody>
@@ -107,51 +93,36 @@
                                                 <td>Chow</td>
                                                 <td>70</td>
                                                 <td>
-                                                    <button type="button" id="order1" class="btn btn-primary btn-circle decrement">
-                                                    <span class="glyphicon glyphicon-minus"></span>
-                                                    </button>
-                                                    <span id="order1"> 0 </span>
-                                                    <button type="button" id="order1" class="btn btn-primary btn-circle increment">
-                                                    <span class="glyphicon glyphicon-plus"></span>
-                                                    </button>
+                                                2
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Hakka</td>
                                                 <td>50</td>
                                                 <td>
-                                                    <button type="button" id="order2" class="btn btn-primary btn-circle decrement">
-                                                    <span class="glyphicon glyphicon-minus"></span>
-                                                    </button>
-                                                    <span id="order2"> 0 </span>
-                                                    <button type="button" id="order2" class="btn btn-primary btn-circle increment">
-                                                    <span class="glyphicon glyphicon-plus"></span>
-                                                    </button>
+                                                7
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Pom</td>
                                                 <td>60</td>
-                                                <td>
-                                                    <button type="button" id="order3" class="btn btn-primary btn-circle decrement">
-                                                    <span class="glyphicon glyphicon-minus"></span>
-                                                    </button>
-                                                    <span id="order3"> 0 </span>
-                                                    <button type="button" id="order3" class="btn btn-primary btn-circle increment">
-                                                    <span class="glyphicon glyphicon-plus"></span>
-                                                    </button>
+                                                <td> 6
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
 
-                                    <h2>Cuisine: Indian</h2>
+                                    <div style="margin-top:60px;">
+                                    </div>
+
+                                    <h2>Restaurant : rest_name2</h2>
+
                                     <table class="table">
                                         <thead>
                                             <tr><b>
                                                 <th>Item Name</th>
                                                 <th>Price</th>
-                                                <th>Add Item</th>
+                                                <th>Quantity</th>
                                             </b></tr>
                                         </thead>
                                         <tbody>
@@ -159,39 +130,21 @@
                                                 <td>Paneer</td>
                                                 <td>70</td>
                                                 <td>
-                                                    <button type="button" class="btn btn-primary btn-circle">
-                                                    <span class="glyphicon glyphicon-minus"></span>
-                                                    </button>
-                                                    <span id="order"> 0 </span>
-                                                    <button type="button" class="btn btn-primary btn-circle">
-                                                    <span class="glyphicon glyphicon-plus"></span>
-                                                    </button>
+                                                5
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Roti</td>
                                                 <td>5</td>
                                                 <td>
-                                                    <button type="button" class="btn btn-primary btn-circle">
-                                                    <span class="glyphicon glyphicon-minus"></span>
-                                                    </button>
-                                                    <span id="order"> 0 </span>
-                                                    <button type="button" class="btn btn-primary btn-circle">
-                                                    <span class="glyphicon glyphicon-plus"></span>
-                                                    </button>
+                                                3
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Rice</td>
                                                 <td>60</td>
                                                 <td>
-                                                    <button type="button" class="btn btn-primary btn-circle">
-                                                    <span class="glyphicon glyphicon-minus"></span>
-                                                    </button>
-                                                    <span id="order"> 0 </span>
-                                                    <button type="button" class="btn btn-primary btn-circle">
-                                                    <span class="glyphicon glyphicon-plus"></span>
-                                                    </button>
+                                                3
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -199,15 +152,43 @@
                                 </div>
 
 
-                                <div class="carttable recommend offset8" style="float:right;">
-                                    <h4 class="recoh">Cart</h4>
+                                <div class="carttable recommend offset8" style="float:right;padding-bottom:20px !important;">
+                                    <h4 class="recoh">Check Out</h4>
                                     <hr class="liner" />
-                                    Total : ₹<span style="font-size:1.2em;">100</span>
-                                    <br />
-                                    <br />
-                                    <button class="btn btn-primary">Add to cart</button>
+                                    <button class="btn btn-primary"  data-toggle="modal" data-target="#addmenu">
+                                        Make payment
+                                    </button>
+
+                                    <div id="addmenu" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom_modalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <form name="newMenuForm" class="signup" novalidate>
+                                                        <p class="title">Payment Details</p>
+                                                        <input type="text" placeholder="Bank" required autofocus />
+                                                        <i class="fa fa-user"></i>
+                                                        <!--<input type="text" placeholder="Lastname" equired autofocus/>
+                                                        <i class="fa fa-user"></i>-->
+                                                        <input type="text" placeholder="Card Number" requuired autofocus/>
+                                                        <i class="fa fa-user"></i>
+                                                        <input type="text" placeholder="CVV" required autofocus/>
+                                                        <i class="fa fa-user"></i>
+                                                        <input readonly  placeholder="1000" />
+                                                        <i class="fa fa-user"></i>
+                                                        <button class="btn btn-lg btn-success btn-block" type="submit" a href="#">
+                    	                                    <i class="spinner"></i>
+                    	                                    <span class="state">Make payment</span>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                 </div>
                             </div>
+
                         </div>
 
 
@@ -247,24 +228,6 @@
         e.stopPropagation();
         input.clockpicker('show')
                 .clockpicker('toggleView', 'hours');
-    });
-
-    $('.increment').click(function(e){
-        var num = parseInt($("span#"+this.id).html());
-        //var numb = this.id.match(/\d/g);
-        //numb = numb.join("");
-        //alert(numb);
-        //alert(num+1);
-        // $("span#"+this.id).html() = num + 1;
-        $('span#'+this.id).html(num+1);
-    });
-
-    $('.decrement').click(function(e){
-        var num = parseInt($("span#"+this.id).html());
-        if(num>0)
-        {
-            $('span#'+this.id).html(num-1);
-        }
     });
 
     </script>

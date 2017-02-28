@@ -6,20 +6,22 @@ from django.views.decorators import csrf
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.contrib import messages
 
+### TODO
 # check 'id' in session for all views
+# modify edit methods to remove old objects
 
 def home(request):
 	if 'id' in request.session.keys():
 		if request.session['type'] == 'customer':
 			restaurants = Restaurant.objects.order_by('name')
 			context = {
-				'name':Customer.objects.get(email=request.session['id']).name,
+				'customer':Customer.objects.get(email=request.session['id']),
 				'restaurants' : restaurants
 			}
 			return render(request,'foodspark/userhome.html',context)
 		elif request.session['type'] == 'restaurant':
 			context = {
-				'name':Restaurant.objects.get(email=request.session['id']).name
+				'restaurant':Restaurant.objects.get(email=request.session['id'])
 			}
 			return render(request,'foodspark/resthome.html',context)
 	else:
@@ -95,6 +97,9 @@ def editDetails(request):
 	if request.method == 'POST':
 		if request.session['type'] == 'customer':
 			customer = Customer.objects.get(email=request.session['id'])
+			context = {
+				'customer':customer,
+				}
 			email = request.POST.get('email')
 			name = request.POST.get('name')
 			phone = request.POST.get('phone')
@@ -108,7 +113,7 @@ def editDetails(request):
 				customer.email = email
 			elif Customer.objects.filter(email=email).exist():
 				messages.error(request,'Email Already Taken :(')
-				return render(request,'/details/')
+				return render(request,'foodspark/userdetails.html',context)
 			else :
 				customer.email = email
 				customer.name = name
@@ -117,12 +122,12 @@ def editDetails(request):
 				customer.phone = phone
 			customer.save()
 			messages.success(request,'Successfully saved :)')
-			context = {
-				'customer':customer,
-				}
-			return render(request,'/details/',context)
+			return render(request,'foodspark/userdetails.html',context)
 		elif request.session['type'] == 'restaurant':
 			restaurant = Restaurant.objects.get(email=request.session['id'])
+			context - {
+				'restaurant' : restaurant,
+			}
 			email = request.POST.get('email')
 			phone = request.POST.get('phone')
 			address = request.POST.get('address')
@@ -139,7 +144,7 @@ def editDetails(request):
 				restaurant.city = city
 			elif Restaurant.objects.filter(email=email).exist():
 				messages.error(request,'Email Already Taken :(')
-		 		return render(request,'/details/')
+		 		return render(request,'foodspark/userdetails.html',context)
 			else:
 				restaurant.email = email
 				restaurant.phone = phone
@@ -150,13 +155,10 @@ def editDetails(request):
 				restaurant.city = city
 			restaurant.save()
 			messages.success(request,'Successfully saved :)')
-			context - {
-				'restaurant' : restaurant,
-			}
-			return render(request,'/details/',context)
+			return render(request,'foodspark/userdetails.html',context)
 
 	elif request.method == 'GET':
-		return render(request,'/details/')
+		return render(request,'foodspark/details.html')
 
 def changePassword(request):
 	if request.method == "POST":
@@ -170,7 +172,7 @@ def changePassword(request):
 				customer.save()
 			else:
 				messages.error(request,"Old password is incorrect")
-			return render(request,'/changePassword/')
+			return render(request,'foodspark/changePassword.html')
 		elif request.session['type'] == 'restaurant':
 			restaurant = Restaurant.objects.get(email=request.session['id'])
 			oldPassword = request.POST.get('oldPassword')
@@ -181,17 +183,17 @@ def changePassword(request):
 				restaurant.save()
 			else:
 				messages.error(request,"Old password is incorrect")
-			return render(request,'/changePassword/')
+			return render(request,'foodspark/changePassword.html')
 
 	elif request.method == 'GET':
-		return render(request,'/changePassword/')
+		return render(request,'foodspark/changePassword.html')
 	
 
 def search(request):
 	searchkey = request.GET.get('search')
 	restaurants = Restaurant.objects.filter(name__contains=searchkey)
 	context = {
-		'name':Customer.objects.get(email=request.session['id']).name,
+		'customer':Customer.objects.get(email=request.session['id']),
 		'restaurants' : restaurants
 	}
 	return render(request,'foodspark/userhome.html',context)
@@ -222,10 +224,19 @@ def restaurantOrderHistory(request):
 
 
 def restview(request,restname):
-	context = {
-				'restaurant':Restaurant.objects.get(name=restname)
-	}
-	return render(request,'foodspark/restview.html',context)
+	if 'id' in request.session.keys():
+		try:
+			customer = Customer.objects.get(email=request.session['id'])
+			restaurant =Restaurant.objects.get(name=restname)
+			context = {
+				'customer' : customer,
+				'restaurant': restaurant,
+			}
+			return render(request,'foodspark/restview.html',context)
+		except:
+			return HttpResponse("Sorry no restaurant with this name")
+	else:
+		return redirect('/')
 
 def details(request):
 	if 'id' in request.session.keys():
@@ -239,5 +250,26 @@ def details(request):
 				'restaurant':Restaurant.objects.get(email=request.session['id'])
 			}
 			return render(request,'foodspark/restdetails.html',context)
+	else:
+		return render(request,"foodspark/login.html")
+
+def makepayment(request):
+	pass
+
+def history(request):
+	if 'id' in request.session.keys():
+		context = {
+				'customer':Customer.objects.get(email=request.session['id']),
+		}
+		return render(request,"foodspark/userhistory.html",context)
+	else:
+		return render(request,"foodspark/login.html")
+
+def cart(request):
+	if 'id' in request.session.keys():
+		context = {
+				'customer':Customer.objects.get(email=request.session['id']),
+		}
+		return render(request,"foodspark/ordercart.html",context)
 	else:
 		return render(request,"foodspark/login.html")

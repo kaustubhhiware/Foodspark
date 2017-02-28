@@ -1,11 +1,36 @@
+.logo_login
+{
+    width:60px;
+    height:60px;
+}
+
+.logo_bitch
+{
+    width:10%;
+    height:10%;
+}
+
+.navbar-left{
+    width: 225px;
+}
+
+
+.navbar-fixed-top{
+    line-height:60px;
+    height:60px;
+}
 .navbar .navbar-nav {
   display: inline-block;
-  float: none;
+  float: left;
   vertical-align: top;
 }
 
 .navbar .navbar-collapse {
   text-align: center;
+}
+
+.navbar-nav{
+    margin: 0 !important;
 }
 
 .navbar-center
@@ -101,10 +126,21 @@ h1 .rest_details{
     width:100%;
 }
 
+.terabaaphumain{
+    padding: 0px;
+    width:100%;
+}
+
 .lefty{
     float: left;
     width:74%;
     padding-right: 20px;
+}
+
+.righty{
+    float: left !important;
+    width:25%;
+    padding-right: 0px;
 }
 
 .recommend{
@@ -113,10 +149,61 @@ h1 .rest_details{
     border:1px solid #BABEC0;
     width: 25%;
     padding-bottom: 50px;
+    text-align:center;
 }
 
 .recoh{
     text-align:center;
     padding-top: 20px;
     padding-left: 20px;
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  background-color: #2196F3;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.42;
+  border-radius: 15px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.ordercard{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.confirmation{
+    float: right;
+    margin-right: 10px;
+}
+
+.scrollable-dropdown{
+    height: auto;
+    max-height:320px;  /* Increase / Decrease value as per your need */
+    overflow-x: hidden;
+    padding-top: 0;
+}
+
+#usersearch{
+    width: 90%;
+}
+
+.usersearchbtn{
+    margin: 0;
+    margin-top: -16px;
+    padding: 0;
+    height: 34px;
+    background-color:
+
+}
+
+.usersearchbtn1{
+    margin: 0;
+    margin-top: -36px;
+    padding: 0;
+    height: 34px;
 }
