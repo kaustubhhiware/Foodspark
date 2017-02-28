@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^search/$',views.search,name='search'),
     url(r'^(?P<restname>[a-zA-Z0-9\s]+)$',views.restview,name='restview'),
+    url(r'^details/$',views.details,name='details'),
 ]
