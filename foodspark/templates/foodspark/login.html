@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en" ng-app="foodspark">
+<html lang="en">
 
 <head>
 	<meta charset="utf-8">
@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="Kaustubh, Aditya, Sayan, Sourav, Projjal">
-
+    <link rel="shortcut icon" href="/static/img/logo.ico">
     <title>Food, but faster! </title>
 
     <!-- Bootstrap Core CSS -->
@@ -16,7 +16,6 @@
 
     <!-- Custom CSS -->
     <link href="/static/css/agency.css" rel="stylesheet">
-    <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js"></script>
     <!-- Custom Fonts -->
     <link href="/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
@@ -24,7 +23,7 @@
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0//static/css/font-awesome.min.css">
     <!-- <link rel="stylesheet" href="/static/css/normalize.css"> -->
 
 <style>
@@ -49,10 +48,12 @@
         <div class="container">
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="hidden">
-                        <a href="#page-top"></a>
+                <ul class="nav navbar-nav navbar-left">
+                    <li>
+                        <img class="logo_login" src="/static/img/logo.gif" style="width:50px; height:50px;"/>
                     </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
                     <li>
                         <a class="page-scroll" href="#page-top">Home</a>
                     </li>
@@ -83,7 +84,7 @@
                 <div id="custom_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom_modalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <div class="modal-body" ng-controller="loginController">
+                            <div class="modal-body">
                                 <form class="login" action='/login/' method="post">
                                     {% csrf_token %}
                                     <p class="title">Log in</p>
@@ -110,18 +111,18 @@
                                 <form name="SignUpForm" class="signup" action='/signup/' method="post">
                                 	{% csrf_token %}
                                     <p class="title">Enter Details</p>
-                                    <input type="text" name="name" placeholder="Name" ng-model="user.firstname" required autofocus />
+                                    <input type="text" name="name" placeholder="Name" required autofocus />
                                     <i class="fa fa-user"></i>
                                     <!--<input type="text" placeholder="Lastname" ng-model="user.lastname" required autofocus/>
                                     <i class="fa fa-user"></i>-->
-                                    <input type="email" name="email" placeholder="Email" ng-model="user.mail" requuired autofocus/>
+                                    <input type="email" name="email" placeholder="Email" requuired autofocus/>
                                     <i class="fa fa-user"></i>
-                                    <input type="number" name="phone" min="100000000" placeholder="Phone Number" ng-model="user.number" required autofocus/>
+                                    <input type="number" name="phone" placeholder="Phone Number" ng-model="user.number" required autofocus/>
                                     <i class="fa fa-user"></i>
-                                    <input type="text" name="address" placeholder="Address" ng-model="user.dob" required autofocus/>
+                                    <input type="text" name="address" placeholder="Address" required autofocus/>
                                     <i class="fa fa-user"></i>
                                     <div style="font color:black; align:left">
-                                    <input list="users" name="usertype" ng-model="user.isfaculty" placeholder="User Type">
+                                    <input list="users" name="usertype" placeholder="User Type">
                                         <datalist id="users">
                                             <option value="Customer">
                                             <option value="Restaurant">
@@ -129,8 +130,8 @@
                                     <input type="password" name="password" placeholder="Password" required />
                                     <i class="fa fa-key"></i>
                                     <button class="btn btn-lg btn-success btn-block" type="submit" a href="#">
-	                                    <i class="spinner"></i>
-	                                    <span class="state">Create Account</span>
+                                        <i class="spinner"></i>
+                                        <span class="state">Create Account</span>
                                     </button>
                                 </form>
                             </div>
@@ -225,5 +226,5 @@
 	});
 </script>
 
-<!-- <script src=https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js></script> -->
+<!-- <script src=https://ajax.googleapis.com/ajax/libs/angular/static/js/1.5.0/angular.min.js></script> -->
 </html>

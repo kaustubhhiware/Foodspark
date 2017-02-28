@@ -30,13 +30,27 @@
         <div class="container" style="margin:0 !important;">
             <span class="navbar-left" style="font-size:1.2em;"><img src="/static/img/logo.gif" class="logo_bitch"/>   FOODSPARK</span>
 
-            <form class="navbar-form navbar-center" role="search" action="/search/" method="get">
-                    <div class="form-group inner-addon right-addon">
-                        <input name="search" type="text" class="form-control" placeholder="Search">
-                        <!--<button type="Submit" style="size:;"><i class="glyphicon glyphicon-search"></i></button>
-                        -->
-                    </div>
-            </form>
+            <!-- Search bar -->
+            <div class="input-group" style="height: 100%;">
+                <div class="input-group-btn search-panel">
+                    <button type="button" class="btn btn-outline-secondary dropdown-toggle navbar-btn usersearchbtn1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span id="search_concept">Any</span></button>
+                    <ul class="dropdown-menu scrollable-dropdown" aria-labelledby="usersearchbtn1" style="margin-top: -36px;">
+                        <li><a href="#">Any</li>
+                        <li><a href="#">Restaurant</li>
+                        <li><a href="#">Food</li>
+                        <li><a href="#">Cuisine</li>
+                        <li><a href="#">City</li>
+                    </ul>
+                </div>
+                <input type="hidden" name="search_param" value="all" id="search_param" />
+                <input type="text" class="form-control" name="x" id="usersearch" placeholder="Search" />
+                <span class="input-group-btn">
+                    <button class="btn btn-outline-secondary navbar-btn usersearchbtn" type="button">
+                        <span class="glyphicon glyphicon-search" ></span>
+                    </button>
+                </span>
+            </div>
 
         </div>
     </nav>
@@ -116,7 +130,7 @@
 
                 </div>
 
-                <h1 style="padding-left: 20px;">Serving restaurants</h1>
+                <h1 style="padding-left: 20px;">Serving Restaurants</h1>
                 <hr class="liner"/>
                 <div id="terabaaphumain">
                     <div class="rest_details lefty" style="float:left;">
@@ -173,6 +187,17 @@
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
+
+    // Search bar code
+    $(document).ready(function(e){
+     $('.search-panel .dropdown-menu').find('a').click(function(e) {
+           e.preventDefault();
+           var param = $(this).attr("href").replace("#","");
+           var concept = $(this).text();
+           $('.search-panel span#search_concept').text(concept);
+           $('.input-group #search_param').val(param);
+       });
+     });
     </script>
 
 </body>

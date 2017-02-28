@@ -87,12 +87,12 @@
                             <div class="modal-body">
                                 <form class="login">
                                     <p class="title">Log in</p>
-                                    <input type="text" placeholder="Email" required autofocus/>
+                                    <input type="email" name="email" placeholder="Email" required autofocus/>
                                     <i class="fa fa-user"></i>
-                                    <input type="password" placeholder="Password" required />
+                                    <input type="password" name="password" placeholder="Password" required />
                                     <i class="fa fa-key"></i>
                                     <a href="#" class = "title" style="font-color:blue;">Forgot your password?</a>
-                                    <button class="btn btn-lg btn-success btn-block" type="submit" a href="#">
+                                    <button class="btn btn-lg btn-success btn-block" type="submit" value="Submit" a href="#">
                                         	<i class="spinner"></i>
                                         	<span class="state">GO</span>
                                     </button>
@@ -110,18 +110,18 @@
                                 <form name="SignUpForm" class="signup" action='/signup/' method="post">
                                     {% csrf_token %}
                                     <p class="title">Enter Details</p>
-                                    <input type="text" name="name" placeholder="Name" ng-model="user.firstname" required autofocus />
+                                    <input type="text" name="name" placeholder="Name" required autofocus />
                                     <i class="fa fa-user"></i>
                                     <!--<input type="text" placeholder="Lastname" ng-model="user.lastname" required autofocus/>
                                     <i class="fa fa-user"></i>-->
-                                    <input type="email" name="email" placeholder="Email" ng-model="user.mail" requuired autofocus/>
+                                    <input type="email" name="email" placeholder="Email" requuired autofocus/>
                                     <i class="fa fa-user"></i>
-                                    <input type="number" name="phone" min="100000000" placeholder="Phone Number" ng-model="user.number" required autofocus/>
+                                    <input type="number" name="phone" placeholder="Phone Number" required autofocus/>
                                     <i class="fa fa-user"></i>
-                                    <input type="text" name="address" placeholder="Address" ng-model="user.dob" required autofocus/>
+                                    <input type="text" name="address" placeholder="Address" required autofocus/>
                                     <i class="fa fa-user"></i>
                                     <div style="font color:black; align:left">
-                                    <input list="users" name="usertype" ng-model="user.isfaculty" placeholder="User Type">
+                                    <input list="users" name="usertype" placeholder="User Type">
                                         <datalist id="users">
                                             <option value="Customer">
                                             <option value="Restaurant">
