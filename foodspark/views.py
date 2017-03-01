@@ -6,11 +6,12 @@ from django.views.decorators import csrf
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.contrib import messages
 from django.core.exceptions import *
+import datetime
 
 ### TODO
 # check 'id' in session for all views
 # modify edit methods to remove old objects...old objects are not removed from database
-# GET /static/css/bootstrap.min.css.map HTTP/1.1" 404
+# error messages in html
 ###
 
 def home(request):
@@ -34,6 +35,7 @@ def home(request):
 def login(request):
 	print "hello"
 	if request.method == 'POST':
+		print request.POST.keys()
 		email = request.POST.get('email')
 		password = request.POST.get('password')
 		try:
@@ -250,6 +252,9 @@ def cart(request):
 						cart[x.fooditem.resid].append(x)
 					except KeyError:
 						cart[x.fooditem.resid] = [x]
+					
+			if not cart:
+				messages.info(request,"Your cart is currently empty")
 			context = {
 					'customer': customer,
 					'cart' : cart,
@@ -257,6 +262,25 @@ def cart(request):
 			}
 			return render(request,"foodspark/ordercart.html",context)
 		elif request.method == 'POST':
+			########delete cart update order
+			customer = Customer.objects.get(email=request.session['id'])
+			orders = {}
+			ordersqty = {}
+			for q in Cart.objects.all():
+				if q.customer == Customer.objects.get(email=request.session['id']):
+					try:
+						orders[q.fooditem.resid] = orders[q.fooditem.resid] + ',' + str(q.fooditem.pk)
+					except KeyError:
+						orders[q.fooditem.resid] = str(q.fooditem.pk)
+					try:
+						ordersqty[q.fooditem.resid] = ordersqty[q.fooditem.resid] + ',' + str(q.foodqty)
+					except KeyError:
+						ordersqty[q.fooditem.resid] = str(q.foodqty)
+					q.delete()
+			for x,y in zip(orders,ordersqty):
+				o = Order(customer=customer,restaurant=x,foodlist=orders[x],foodqty=ordersqty[y],ordertime=datetime.datetime.now(),deliverystatus='p')
+				o.calamount()
+				o.save()
 			messages.success(request,"Payment Successfull :)")
 			return render(request,"foodspark/ordercart.html")
 	else:
@@ -276,9 +300,6 @@ def details(request):
 			return render(request,'foodspark/restdetails.html',context)
 	else:
 		return render(request,"foodspark/login.html")
-
-def makepayment(request):
-	pass
 
 def history(request):
 	if 'id' in request.session.keys():
@@ -309,9 +330,27 @@ def saveToCart(request):
 		foodall = FoodItem.objects.all()
 		for x in foodall:
 			if 'food' + str(x.pk) in request.POST.keys():
-				if request.POST['food' + str(x.pk)] > 0:
-					cartitem = Cart(customer = Customer.objects.get(email=request.session['id']), fooditem = FoodItem.objects.get(pk=x.pk), foodqty= request.POST['food' + str(s.pk)])
-					carditem.save()
-		return redirect('/cart/')
+				if int(request.POST['food' + str(x.pk)]) > 0:
+					cartitem = Cart(customer = Customer.objects.get(email=request.session['id']), fooditem = FoodItem.objects.get(pk=x.pk), foodqty= request.POST['food' + str(x.pk)])
+					cartitem.save()
+		customer = Customer.objects.get(email=request.session['id'])
+		query = Cart.objects.all()
+		cart = {}
+		amount = 0
+		for x in query:
+			if x.customer.email == customer.email:
+				amount = amount + x.fooditem.price * x.foodqty
+				try:
+					cart[x.fooditem.resid].append(x)
+				except KeyError:
+					cart[x.fooditem.resid] = [x]
+		if not cart:
+			messages.info(request,"Your cart is currently empty")
+		context = {
+				'customer': customer,
+				'cart' : cart,
+				'amount' : amount
+		}
+		return render(request,"foodspark/ordercart.html",context)
 	else:
 		return render(request,"foodspark/login.html")

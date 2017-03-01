@@ -88,18 +88,12 @@ class Order(models.Model):
  	foodlist = models.CharField(max_length = 500,validators=[validate_comma_separated_integer_list],null=True)
  	foodqty = models.CharField(max_length = 500,validators=[validate_comma_separated_integer_list],null=True)
  	amount = models.IntegerField(default = 0)
-	ordertime = models.TimeField(default= datetime.datetime.now())
+	ordertime = models.TimeField()
 	DSTATUS = (
 		('p','Pending'),
 		('d','Delivered')
 	)
 	deliverystatus = models.CharField(max_length=1,choices=DSTATUS,default = 'p')
-	PSTATUS = (
-		('P','Paid'),
-		('N','Not Paid')
-	)
-	paymentstatus = models.CharField(max_length=1,choices=PSTATUS,default = 'N')
-
 
 	def calamount(self):
 		self.amount = 0
@@ -107,7 +101,7 @@ class Order(models.Model):
 		qty = self.foodqty.split(",")
 		for x,y in zip(myl,qty):
 			fitem = FoodItem.objects.get(pk=int(x))
-			self.amount = self.amount + fitem.price*y
+			self.amount = self.amount + fitem.price*int(y)
 
 	def getfooditems(self):
 		myl = self.foodlist.split(",")

@@ -91,6 +91,7 @@
                             <hr class="liner"/>
 
                             <form action='/addtocart/' method='post' id="terabaaphumain">
+                            {% csrf_token %}
 
                                 <div class="foodtable lefty">
                                     {% if fooditems %}
@@ -112,11 +113,14 @@
                                                 <td>
                                                     {% with z.pk|stringformat:"s" as zstr %}
                                                     {% with "food"|add:zstr as foodid %}
+                                                    {% with "numfood"|add:zstr as foodipid %}
                                                     <button type="button" id= "{{foodid}}" class="btn btn-primary btn-circle decrement">
                                                     <span class="glyphicon glyphicon-minus"></span>
                                                     </button>
-                                                    <span class="ordernum" id="{{foodid}}" name="{{foodid}}"> 0 </span>
+                                                    <input type="hidden" name="{{foodid}}" value="0" id="{{foodipid}}" />
+                                                    <span class="ordernum" id="{{foodid}}"/> 0 </span>
                                                     <button type="button" id="{{foodid}}" class="btn btn-primary btn-circle increment">
+                                                    {% endwith %}
                                                     {% endwith %}
                                                     {% endwith %}
                                                     <span class="glyphicon glyphicon-plus"></span>
@@ -184,6 +188,7 @@
         
         var num = parseInt($(".ordernum#"+this.id).html());
         $('.ordernum#'+this.id).html(num+1);
+        document.getElementById('num'+this.id).value = num+1;
     });
 
     $('.decrement').click(function(e){
@@ -191,6 +196,7 @@
         if(num>0)
         {
             $('.ordernum#'+this.id).html(num-1);
+            document.getElementById('num'+this.id).value = num-1;
         }
     });
 

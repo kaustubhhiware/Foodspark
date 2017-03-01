@@ -76,7 +76,7 @@
                 {% if messages %}
                 <ul class="messages">
                     {% for message in messages %}
-                    <div class="alert alert-danger"> <!--{% if message.tags %} class="{{ message.tags }}"{% endif %}>-->{{ message }}</div>
+                    <div class="alert alert-danger"> <strong><!--{% if message.tags %} class="{{ message.tags }}"{% endif %}>-->{{ message }}</strong></div>
                     {% endfor %}
                 </ul>
                 {% endif %}

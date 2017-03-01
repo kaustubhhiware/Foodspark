@@ -77,9 +77,16 @@
 
                             <hr class="liner"/>
                             <div id="terabaaphumain">
+                            {% if messages %}
+                            <ul class="messages">
+                                {% for message in messages %}
+                                <div class="alert alert-{{message.tags}}"> <strong> <!--{% if message.tags %} class="{{ message.tags }}"{% endif %}>-->{{ message }}</strong></div>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
 
+                                {% if cart %}
                                 <div class="foodtable lefty">
-                                    {% if cart %}
                                     {%for x,y in cart.items%}
                                     <h2>Restaurant : {{x.name}}</h2>
                                     <table class="table">
@@ -94,7 +101,7 @@
                                             {%for z in y%}
                                             <tr>
                                                 <td>{{z.fooditem.name}}</td>
-                                                <td>{z.fooditem.price}</td>
+                                                <td>{{z.fooditem.price}}</td>
                                                 <td>{{z.foodqty}}</td>
                                             </tr>
                                             {%endfor%}
@@ -104,10 +111,10 @@
                                     <div style="margin-top:60px;">
                                     </div>
                                     {%endfor%}
-                                    {%endif%}
                                 </div>
+                                {%endif%}
 
-
+                                {%if cart%}
                                 <div class="carttable recommend offset8" style="float:right;padding-bottom:20px !important;">
                                     <h4 class="recoh">Check Out</h4>
                                     <hr class="liner" />
@@ -120,6 +127,7 @@
                                             <div class="modal-content">
                                                 <div class="modal-body">
                                                     <form name="newMenuForm" action='/cart/' method="post" class="signup" novalidate>
+                                                    {% csrf_token %}
                                                         <p class="title">Payment Details</p>
                                                         <input type="text" name="bank" placeholder="Bank" required autofocus />
                                                         <i class="fa fa-user"></i>
@@ -143,6 +151,7 @@
 
 
                                 </div>
+                                {%endif%}
                             </div>
 
                         </div>
