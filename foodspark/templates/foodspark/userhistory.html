@@ -99,7 +99,7 @@
                         {% for x,z in history.items %}
                          <div class="card">
                             <div class="card-header">
-                            Total {{x.amount}}
+                            Total : ₹{{x.amount}}
                                 <span style="float:right;">
                                 <i class="glyphicon glyphicon-time blueicon ordercard"></i> {{x.ordertime}}
                                 <i class="glyphicon glyphicon-cutlery blueicon ordercard"></i> {{z}}
@@ -109,7 +109,7 @@
                             <div class="card-block terabaaphumain">
                                 <div class="lefty">
                                     <h4 class="card-title">{{y.name}} </h4>
-                                    <p class="card-text">{{y.price}}</p>
+                                    <p class="card-text">₹{{y.price}}</p>
                                 </div>
 
                             </div>

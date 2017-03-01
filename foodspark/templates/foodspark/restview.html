@@ -93,7 +93,9 @@
                             <div id="terabaaphumain">
 
                                 <div class="foodtable lefty">
-                                    <h2>Cuisine: Chinese</h2>
+                                    {% if fooditems %}
+                                    {% for x,y in fooditems.items %}
+                                    <h2>Cuisine: {{x}}</h2>
                                     <table class="table">
                                         <thead>
                                             <tr><b>
@@ -103,99 +105,30 @@
                                             </b></tr>
                                         </thead>
                                         <tbody>
+                                            {%for z in y %}
                                             <tr>
-                                                <td>Chow</td>
-                                                <td>70</td>
+                                                <td>{{z.name}}</td>
+                                                <td>{{z.price}}</td>
                                                 <td>
-                                                    <button type="button" id="order1" class="btn btn-primary btn-circle decrement">
+                                                    <button type="button" id= "{{z.pk}}" class="btn btn-primary btn-circle decrement">
                                                     <span class="glyphicon glyphicon-minus"></span>
                                                     </button>
-                                                    <span id="order1"> 0 </span>
-                                                    <button type="button" id="order1" class="btn btn-primary btn-circle increment">
+                                                    {% with z.pk|stringformat:"s" as zstr %}
+                                                    {% with "order"|add:zstr as orderid %}
+                                                    <span class="ordernum" id="{{orderid}}"> 0 </span>
+                                                    <button type="button" id="{{orderid}}" class="btn btn-primary btn-circle increment">
+                                                    {% endwith %}
+                                                    {% endwith %}
                                                     <span class="glyphicon glyphicon-plus"></span>
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td>Hakka</td>
-                                                <td>50</td>
-                                                <td>
-                                                    <button type="button" id="order2" class="btn btn-primary btn-circle decrement">
-                                                    <span class="glyphicon glyphicon-minus"></span>
-                                                    </button>
-                                                    <span id="order2"> 0 </span>
-                                                    <button type="button" id="order2" class="btn btn-primary btn-circle increment">
-                                                    <span class="glyphicon glyphicon-plus"></span>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Pom</td>
-                                                <td>60</td>
-                                                <td>
-                                                    <button type="button" id="order3" class="btn btn-primary btn-circle decrement">
-                                                    <span class="glyphicon glyphicon-minus"></span>
-                                                    </button>
-                                                    <span id="order3"> 0 </span>
-                                                    <button type="button" id="order3" class="btn btn-primary btn-circle increment">
-                                                    <span class="glyphicon glyphicon-plus"></span>
-                                                    </button>
-                                                </td>
-                                            </tr>
+                                            {%endfor%}
                                         </tbody>
                                     </table>
+                                    {%endfor%}
+                                    {%endif%}
 
-                                    <h2>Cuisine: Indian</h2>
-                                    <table class="table">
-                                        <thead>
-                                            <tr><b>
-                                                <th>Item Name</th>
-                                                <th>Price</th>
-                                                <th>Add Item</th>
-                                            </b></tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Paneer</td>
-                                                <td>70</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-primary btn-circle">
-                                                    <span class="glyphicon glyphicon-minus"></span>
-                                                    </button>
-                                                    <span id="order"> 0 </span>
-                                                    <button type="button" class="btn btn-primary btn-circle">
-                                                    <span class="glyphicon glyphicon-plus"></span>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Roti</td>
-                                                <td>5</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-primary btn-circle">
-                                                    <span class="glyphicon glyphicon-minus"></span>
-                                                    </button>
-                                                    <span id="order"> 0 </span>
-                                                    <button type="button" class="btn btn-primary btn-circle">
-                                                    <span class="glyphicon glyphicon-plus"></span>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Rice</td>
-                                                <td>60</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-primary btn-circle">
-                                                    <span class="glyphicon glyphicon-minus"></span>
-                                                    </button>
-                                                    <span id="order"> 0 </span>
-                                                    <button type="button" class="btn btn-primary btn-circle">
-                                                    <span class="glyphicon glyphicon-plus"></span>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
                                 </div>
 
 
@@ -209,9 +142,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-
 
                     </div>
                 </div>
@@ -250,20 +180,17 @@
     });
 
     $('.increment').click(function(e){
-        var num = parseInt($("span#"+this.id).html());
-        //var numb = this.id.match(/\d/g);
-        //numb = numb.join("");
-        //alert(numb);
-        //alert(num+1);
-        // $("span#"+this.id).html() = num + 1;
-        $('span#'+this.id).html(num+1);
+
+        
+        var num = parseInt($(".ordernum#"+this.id).html());
+        $('.ordernum#'+this.id).html(num+1);
     });
 
     $('.decrement').click(function(e){
-        var num = parseInt($("span#"+this.id).html());
+        var num = parseInt($(".ordernum#"+this.id).html());
         if(num>0)
         {
-            $('span#'+this.id).html(num-1);
+            $('.ordernum#'+this.id).html(num-1);
         }
     });
 

@@ -5,10 +5,12 @@ import json
 from django.views.decorators import csrf
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.contrib import messages
+from django.core.exceptions import *
 
 ### TODO
 # check 'id' in session for all views
 # modify edit methods to remove old objects...old objects are not removed from database
+# GET /static/css/bootstrap.min.css.map HTTP/1.1" 404
 ###
 
 def home(request):
@@ -201,14 +203,6 @@ def search(request):
 	}
 	return render(request,'foodspark/userhome.html',context)
 
-def customerOrderHistory(request):
-	customer = Customer.objects.get(email=request.session['id'])
-	query = Order.objects.all()
-	history = []
-	for x in query:
-		if x.customer_id == customer.email:
-			history.append(x)
-
 def restaurantOrderHistory(request):
 	restaurant = Restaurant.objects.get(email=request.session['id'])
 	query = Order.objects.all()
@@ -225,15 +219,19 @@ def restview(request,restname):
 			restaurant =Restaurant.objects.get(name=restname)
 			foodall = FoodItem.objects.all()
 			fooditems = {}
-			for x in fooditems:
-				if x.resid == restaurant.email:
-					fooditems[x]
+			for x in foodall:
+				if x.resid.email == restaurant.email:
+					try:
+						fooditems[x.cuisine].append(x)
+					except KeyError:
+						fooditems[x.cuisine] = [x]
 			context = {
 				'customer' : customer,
 				'restaurant': restaurant,
+				'fooditems' : fooditems,
 			}
 			return render(request,'foodspark/restview.html',context)
-		except:
+		except ObjectDoesNotExist:
 			return HttpResponse("Sorry no restaurant with this name")
 	else:
 		return redirect('/')
