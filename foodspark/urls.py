@@ -12,5 +12,7 @@ urlpatterns = [
     url(r'^details/?$',views.details,name='details'),
     url(r'^cart/?$',views.cart,name='cart'),
     url(r'^history/?$',views.history,name='history'),
+    url(r'^addtocart/?$',views.saveToCart,name='saveToCart'),
+    # url(r'^makepaymenet/?$'.views.makepaymenet,name='makepaymenet'),
     url(r'^restaurant/(?P<restname>[a-zA-Z0-9\s]+)/?$',views.restview,name='restview'),
 ]

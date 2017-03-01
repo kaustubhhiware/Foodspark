@@ -90,7 +90,7 @@
 
                             <hr class="liner"/>
 
-                            <div id="terabaaphumain">
+                            <form action='/addtocart/' method='post' id="terabaaphumain">
 
                                 <div class="foodtable lefty">
                                     {% if fooditems %}
@@ -110,13 +110,13 @@
                                                 <td>{{z.name}}</td>
                                                 <td>{{z.price}}</td>
                                                 <td>
-                                                    <button type="button" id= "{{z.pk}}" class="btn btn-primary btn-circle decrement">
+                                                    {% with z.pk|stringformat:"s" as zstr %}
+                                                    {% with "food"|add:zstr as foodid %}
+                                                    <button type="button" id= "{{foodid}}" class="btn btn-primary btn-circle decrement">
                                                     <span class="glyphicon glyphicon-minus"></span>
                                                     </button>
-                                                    {% with z.pk|stringformat:"s" as zstr %}
-                                                    {% with "order"|add:zstr as orderid %}
-                                                    <span class="ordernum" id="{{orderid}}"> 0 </span>
-                                                    <button type="button" id="{{orderid}}" class="btn btn-primary btn-circle increment">
+                                                    <span class="ordernum" id="{{foodid}}" name="{{foodid}}"> 0 </span>
+                                                    <button type="button" id="{{foodid}}" class="btn btn-primary btn-circle increment">
                                                     {% endwith %}
                                                     {% endwith %}
                                                     <span class="glyphicon glyphicon-plus"></span>
@@ -138,9 +138,9 @@
                                     Total : ₹<span style="font-size:1.2em;">100</span>
                                     <br />
                                     <br />
-                                    <button class="btn btn-primary">Add to cart</button>
+                                    <button class="btn btn-primary" type="submit" a href="#">Add to cart</button>
                                 </div>
-                            </div>
+                            </form>
                         </div>
 
                     </div>

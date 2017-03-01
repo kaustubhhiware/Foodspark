@@ -7,8 +7,7 @@ from django.core.validators import  *
 from django.core.exceptions import ValidationError
 import datetime
 
-
-# Create your models here.
+# default order time bug hai
 class Restaurant(models.Model):
 	email = models.EmailField(primary_key = True)
 	password = models.CharField(max_length=100)
@@ -67,15 +66,6 @@ class Customer(models.Model):
 	def set_password(self, password):
 		self.password = password
 
-	def details(self):
-		return {
-			'userid' : self.userid,
-			'name' : self.name,
-			'email' : self.email,
-			'password' : self.password,
-			'phone' : self.phone
-		}
-
 class FoodItem(models.Model):
 	resid = models.ForeignKey(Restaurant,on_delete=models.CASCADE)
 	name = models.CharField(max_length=500)
@@ -96,6 +86,7 @@ class Order(models.Model):
  	customer = models.ForeignKey(Customer,on_delete=models.CASCADE)
  	restaurant = models.ForeignKey(Restaurant,on_delete=models.CASCADE)
  	foodlist = models.CharField(max_length = 500,validators=[validate_comma_separated_integer_list],null=True)
+ 	foodqty = models.CharField(max_length = 500,validators=[validate_comma_separated_integer_list],null=True)
  	amount = models.IntegerField(default = 0)
 	ordertime = models.TimeField(default= datetime.datetime.now())
 	DSTATUS = (
@@ -113,9 +104,10 @@ class Order(models.Model):
 	def calamount(self):
 		self.amount = 0
 		myl = self.foodlist.split(",")
-		for x in myl:
+		qty = self.foodqty.split(",")
+		for x,y in zip(myl,qty):
 			fitem = FoodItem.objects.get(pk=int(x))
-			self.amount = self.amount + fitem.price
+			self.amount = self.amount + fitem.price*y
 
 	def getfooditems(self):
 		myl = self.foodlist.split(",")
@@ -124,5 +116,7 @@ class Order(models.Model):
 			items.append(FoodItem.objects.get(pk=int(x)))
 		return items
 
-
-	
+class Cart(models.Model):
+	customer = models.ForeignKey(Customer,on_delete=models.CASCADE)
+ 	fooditem = models.ForeignKey(FoodItem,on_delete=models.CASCADE)
+ 	foodqty = models.IntegerField()

@@ -236,6 +236,32 @@ def restview(request,restname):
 	else:
 		return redirect('/')
 
+def cart(request):
+	if 'id' in request.session.keys():
+		if request.method == 'GET':
+			customer = Customer.objects.get(email=request.session['id'])
+			query = Cart.objects.all()
+			cart = {}
+			amount = 0
+			for x in query:
+				if x.customer.email == customer.email:
+					amount = amount + x.fooditem.price * x.foodqty
+					try:
+						cart[x.fooditem.resid].append(x)
+					except KeyError:
+						cart[x.fooditem.resid] = [x]
+			context = {
+					'customer': customer,
+					'cart' : cart,
+					'amount' : amount
+			}
+			return render(request,"foodspark/ordercart.html",context)
+		elif request.method == 'POST':
+			messages.success(request,"Payment Successfull :)")
+			return render(request,"foodspark/ordercart.html")
+	else:
+		return render(request,"foodspark/login.html")
+
 def details(request):
 	if 'id' in request.session.keys():
 		if request.session['type'] == 'customer':
@@ -274,21 +300,18 @@ def history(request):
 	else:
 		return render(request,"foodspark/login.html")
 
-def cart(request):
-	if 'id' in request.session.keys():
-		customer = Customer.objects.get(email=request.session['id'])
-		query = Order.objects.all()
-		history = []
-		for x in query:
-			if x.customer_id == customer.email and x.deliverystatus=='p':
-				history.append(x)
-		context = {
-				'customer': customer,
-				'cart' : history
-		}
-		return render(request,"foodspark/ordercart.html",context)
-	else:
-		return render(request,"foodspark/login.html")
 
 def recommendedRests():
 	pass
+
+def saveToCart(request):
+	if 'id' in request.session.keys():
+		foodall = FoodItem.objects.all()
+		for x in foodall:
+			if 'food' + str(x.pk) in request.POST.keys():
+				if request.POST['food' + str(x.pk)] > 0:
+					cartitem = Cart(customer = Customer.objects.get(email=request.session['id']), fooditem = FoodItem.objects.get(pk=x.pk), foodqty= request.POST['food' + str(s.pk)])
+					carditem.save()
+		return redirect('/cart/')
+	else:
+		return render(request,"foodspark/login.html")

@@ -79,7 +79,9 @@
                             <div id="terabaaphumain">
 
                                 <div class="foodtable lefty">
-                                    <h2>Restaurant : rest_name</h2>
+                                    {% if cart %}
+                                    {%for x,y in cart.items%}
+                                    <h2>Restaurant : {{x.name}}</h2>
                                     <table class="table">
                                         <thead>
                                             <tr><b>
@@ -89,66 +91,20 @@
                                             </b></tr>
                                         </thead>
                                         <tbody>
+                                            {%for z in y%}
                                             <tr>
-                                                <td>Chow</td>
-                                                <td>70</td>
-                                                <td>
-                                                2
-                                                </td>
+                                                <td>{{z.fooditem.name}}</td>
+                                                <td>{z.fooditem.price}</td>
+                                                <td>{{z.foodqty}}</td>
                                             </tr>
-                                            <tr>
-                                                <td>Hakka</td>
-                                                <td>50</td>
-                                                <td>
-                                                7
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Pom</td>
-                                                <td>60</td>
-                                                <td> 6
-                                                </td>
-                                            </tr>
+                                            {%endfor%}
                                         </tbody>
                                     </table>
 
                                     <div style="margin-top:60px;">
                                     </div>
-
-                                    <h2>Restaurant : rest_name2</h2>
-
-                                    <table class="table">
-                                        <thead>
-                                            <tr><b>
-                                                <th>Item Name</th>
-                                                <th>Price</th>
-                                                <th>Quantity</th>
-                                            </b></tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Paneer</td>
-                                                <td>70</td>
-                                                <td>
-                                                5
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Roti</td>
-                                                <td>5</td>
-                                                <td>
-                                                3
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Rice</td>
-                                                <td>60</td>
-                                                <td>
-                                                3
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    {%endfor%}
+                                    {%endif%}
                                 </div>
 
 
@@ -163,21 +119,21 @@
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-body">
-                                                    <form name="newMenuForm" class="signup" novalidate>
+                                                    <form name="newMenuForm" action='/cart/' method="post" class="signup" novalidate>
                                                         <p class="title">Payment Details</p>
-                                                        <input type="text" placeholder="Bank" required autofocus />
+                                                        <input type="text" name="bank" placeholder="Bank" required autofocus />
                                                         <i class="fa fa-user"></i>
                                                         <!--<input type="text" placeholder="Lastname" equired autofocus/>
                                                         <i class="fa fa-user"></i>-->
-                                                        <input type="text" placeholder="Card Number" requuired autofocus/>
+                                                        <input type="text" name="cardno" placeholder="Card Number" requuired autofocus/>
                                                         <i class="fa fa-user"></i>
-                                                        <input type="text" placeholder="CVV" required autofocus/>
+                                                        <input type="text" name="cvv" placeholder="CVV" required autofocus/>
                                                         <i class="fa fa-user"></i>
-                                                        <input readonly  placeholder="1000" />
+                                                        <input readonly name="amount" placeholder={{amount}} value={{amount}} />
                                                         <i class="fa fa-user"></i>
                                                         <button class="btn btn-lg btn-success btn-block" type="submit" a href="#">
                     	                                    <i class="spinner"></i>
-                    	                                    <span class="state">Make payment</span>
+                    	                                    <span class="state" type="submit">Make payment</span>
                                                         </button>
                                                     </form>
                                                 </div>
