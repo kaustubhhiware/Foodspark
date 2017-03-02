@@ -10,8 +10,10 @@ import datetime
 
 ### TODO
 # check 'id' in session for all views
-# modify edit methods to remove old objects...old objects are not removed from database
+# remove email edit field
 # error messages in html
+# recommended restaurants
+# view orders in user history in descending order
 ###
 
 def home(request):
@@ -24,9 +26,27 @@ def home(request):
 			}
 			return render(request,'foodspark/userhome.html',context)
 		elif request.session['type'] == 'restaurant':
+			restaurant = Restaurant.objects.get(email=request.session['id'])
+			query = Order.objects.order_by('-pk').all()
+			dic = {}
+			customer = {}
+			for x in query:
+				if x.restaurant_id == restaurant.email:
+					dic2 = {}
+					if(x.deliverystatus == 'd'):
+						continue
+					x.calamount()
+					for i,j in zip(x.getfooditems(),x.getqty()):
+						dic2[i] = j
+					dic[x] = dic2
+					customer[x] = x.customer
+
 			context = {
-				'restaurant':Restaurant.objects.get(email=request.session['id'])
+				'foods' : dic,
+				'customer' : customer,
+				'restaurant' : restaurant,
 			}
+
 			return render(request,'foodspark/resthome.html',context)
 	else:
 		return render(request,"foodspark/login.html")
@@ -197,7 +217,40 @@ def changePassword(request):
 def search(request):
 	searchkey = request.GET.get('search')
 	searchtype = request.GET.get('search_param')
-	restaurants = Restaurant.objects.filter(name__contains=searchkey)
+	if searchtype == 'Restaurant':
+		restaurants = Restaurant.objects.filter(name__contains=searchkey)
+	elif searchtype == 'Cuisine':
+		foods = FoodItem.objects.filter(cuisine__contains=searchkey)
+		restaurants = []
+		for x in foods:
+			if x.resid not in restaurants:
+				restaurants.append(x.resid)
+	elif searchtype == 'Food':
+		foods = FoodItem.objects.filter(name__contains=searchkey)
+		restaurants = []
+		for x in foods:
+			if x.resid not in restaurants:
+				restaurants.append(x.resid)
+	elif searchtype == 'City':
+		print searchkey
+		restaurants = Restaurant.objects.filter(city__contains=searchkey)
+	elif searchtype == 'All':
+		restaurants = Restaurant.objects.filter(name__contains=searchkey)
+		restaurants = list(restaurants)
+		foods_cuisine = FoodItem.objects.filter(cuisine__contains=searchkey)
+		foods = FoodItem.objects.filter(name__contains=searchkey)
+		for x in foods:
+			if x.resid not in restaurants:
+				restaurants.append(x.resid)
+		for x in foods_cuisine:
+			if x.resid not in restaurants:
+				restaurants.append(x.resid)
+		rescity = Restaurant.objects.filter(city__contains=searchkey)
+		rescity = list(rescity)
+		for i in rescity:
+			if i not in restaurants:
+				restaurants.append(i)
+
 	context = {
 		'customer':Customer.objects.get(email=request.session['id']),
 		'restaurants' : restaurants,
@@ -207,12 +260,43 @@ def search(request):
 
 def restaurantOrderHistory(request):
 	restaurant = Restaurant.objects.get(email=request.session['id'])
-	query = Order.objects.all()
-	history = []
+	query = Order.objects.order_by('-pk').all()
+	dic = {}
+	customer = {}
 	for x in query:
 		if x.restaurant_id == restaurant.email:
-			history.append(x)
+			dic2 = {}
+			if(x.deliverystatus == 'p'):
+				continue
+			x.calamount()
+			for i,j in zip(x.getfooditems(),x.getqty()):
+				dic2[i] = j
+			dic[x] = dic2
+			customer[x] = x.customer
 
+	context = {
+		'foods' : dic,
+		'customer' : customer,
+		'restaurant' : restaurant,
+	}
+
+	return render(request,'foodspark/resthistory.html',context)
+
+def restprofile(request):
+	restaurant = Restaurant.objects.get(email=request.session['id'])
+	fooditems = FoodItem.objects.all()
+	menu = {}
+	for fi in fooditems:
+		if fi.resid == restaurant:
+			try:
+				menu[fi.cuisine].append(fi)
+			except KeyError:
+				menu[fi.cuisine] = [fi]
+		context = {
+			'restaurant' : restaurant,
+			'menu' : menu
+		}
+	return render(request,'foodspark/restprofile.html',context)
 
 def restview(request,restname):
 	if 'id' in request.session.keys():
@@ -304,18 +388,36 @@ def details(request):
 def history(request):
 	if 'id' in request.session.keys():
 		customer = Customer.objects.get(email=request.session['id'])
-		query = Order.objects.all()
-		restaurants = Restaurant.objects.all()
-		history = {}
-
+		query = Order.objects.order_by('-pk').all()
+		pending_rest = {}
+		pending_items = {}
+		history_rest = {}
+		history_items = {}
 		for x in query:
-			if x.customer_id == customer.email:
-				y = restaurants.get(email=x.restaurant.email)
-				history[x] = y.name
+			if x.customer == customer:
+				if(x.deliverystatus == 'p'):
+					print "1"
+					dic2 = {}
+					x.calamount()
+					for i,j in zip(x.getfooditems(),x.getqty()):
+						dic2[i] = j
+					pending_items[x] = dic2
+					pending_rest[x] = x.restaurant
+				if(x.deliverystatus == 'd'):
+					dic2 = {}
+					x.calamount()
+					for i,j in zip(x.getfooditems(),x.getqty()):
+						dic2[i] = j
+					history_items[x] = dic2
+					history_rest[x] = x.restaurant
+
 
 		context = {
-				'customer': customer,
-				'history' : history,
+			'customer' : customer,
+			'pending_items' : pending_items,
+			'pending_rest' : pending_rest,
+			'history_items' : history_items,
+			'history_rest' : history_rest,
 		}
 		return render(request,"foodspark/userhistory.html",context)
 	else:
@@ -352,5 +454,36 @@ def saveToCart(request):
 				'amount' : amount
 		}
 		return render(request,"foodspark/ordercart.html",context)
+	else:
+		return render(request,"foodspark/login.html")
+
+def delivered(request):
+	if 'id' in request.session.keys() and request.session['type'] == 'restaurant':
+		order = Order.objects.get(pk = request.POST['orderid'])
+		order.deliverystatus = 'd'
+		order.save()
+		return redirect('/')
+
+	else:
+		return render(request,"foodspark/login.html")
+
+def addfooditem(request):
+	if 'id' in request.session.keys() and request.session['type'] == 'restaurant':
+		restaurant = Restaurant.objects.get(email=request.session['id'])
+		name = request.POST['name']
+		cuisine = request.POST['cuisine']
+		price = request.POST['price']
+		food = FoodItem(resid=restaurant,name=name,cuisine=cuisine,price=price,course='s',availability_time=datetime.datetime.now())
+		food.save()
+		return redirect('/restprofile/')
+	else:
+		return render(request,"foodspark/login.html")
+
+def removefooditem(request):
+	if 'id' in request.session.keys() and request.session['type'] == 'restaurant':
+		restaurant = Restaurant.objects.get(email=request.session['id'])
+		food = FoodItem.objects.get(pk=request.POST['foodid'])
+		food.delete()
+		return redirect('/restprofile/')
 	else:
 		return render(request,"foodspark/login.html")

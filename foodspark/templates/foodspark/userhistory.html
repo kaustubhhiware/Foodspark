@@ -77,30 +77,77 @@
                         <hr class="liner"/>
 
                         <!-- Yes, one card is one order-->
+                        {%if pending_rest%}
+                        {%for x,z in pending_rest.items%}
                         <div class="card">
                             <div class="card-header">
-                            Current Order
+                            Total : ₹{{x.amount}}
                                 <span style="float:right;">
-                                <i class="glyphicon glyphicon-time blueicon ordercard"></i> Estimated Time of Delivery : 22:30
-                                <i class="glyphicon glyphicon-time blueicon ordercard"></i> Date
-                                <i class="glyphicon glyphicon-cutlery blueicon ordercard"></i> Restaurant_name
+                                <i class="glyphicon glyphicon-refresh blueicon ordercard"></i> In Progress
+                                <i class="glyphicon glyphicon-time blueicon ordercard"></i> {{x.ordertime}}
+                                <!-- <i class="glyphicon glyphicon-time blueicon ordercard"></i> Date -->
+                                <i class="glyphicon glyphicon-cutlery blueicon ordercard"></i> {{z.name}}
                                 </span>
                             </div>
+                            {%for z,k in pending_items.items%}
+                            {%if x.pk == z.pk%}
+                            {%for i,j in k.items%}
                             <div class="card-block terabaaphumain">
                                 <div class="lefty">
-                                    <h4 class="card-title">Food item x Quantity, </h4>
-                                    <p class="card-text">Total</p>
+                                    <h4 class="card-title">{{i.name}} x {{j}} </h4>
+                                    <p class="card-text">₹{{i.price}}</p>
                                 </div>
 
                             </div>
                             <div style="padding-top:60px;"></div>
+                                {%endfor%}
+                            {%endif%}
+                            {%endfor%}
                         </div>
-                        {% if history %}
+                        <div style="padding-top:50px;"></div>
+                        {%endfor%}
+                        {%endif%}
+                        
+
+                        {% if history_rest %}
+                        {% for x,z in history_rest.items %}
+                         <div class="card">
+                            <div class="card-header">
+                            Total : ₹{{x.amount}}
+                                <span style="float:right;">
+                                <i class="glyphicon glyphicon-ok blueicon ordercard"></i> Delivered
+                                <i class="glyphicon glyphicon-time blueicon ordercard"></i> {{x.ordertime}}
+                                <i class="glyphicon glyphicon-cutlery blueicon ordercard"></i> {{z.name}}
+                                </span>
+                            </div>
+                            {%for z,k in history_items.items%}
+                            {%if x.pk == z.pk%}
+                            {%for i,j in k.items%}
+                            <div class="card-block terabaaphumain">
+                                <div class="lefty">
+                                    <h4 class="card-title">{{i.name}} x {{j}} </h4>
+                                    <p class="card-text">₹{{i.price}}</p>
+                                </div>
+
+                            </div>
+                            <div style="padding-top:60px;"></div>
+                            {%endfor%}
+                            {%endif%}
+                            {%endfor%}
+                        </div>
+
+                        <div style="padding-top:50px;"></div>
+
+                        {% endfor %}
+                        {% endif %}                         
+
+                        <!-- {% if history %}
                         {% for x,z in history.items %}
                          <div class="card">
                             <div class="card-header">
                             Total : ₹{{x.amount}}
                                 <span style="float:right;">
+                                <i class="glyphicon glyphicon-ok blueicon ordercard"></i> Delivered
                                 <i class="glyphicon glyphicon-time blueicon ordercard"></i> {{x.ordertime}}
                                 <i class="glyphicon glyphicon-cutlery blueicon ordercard"></i> {{z}}
                                 </span>
@@ -108,7 +155,7 @@
                             {% for y in x.getfooditems %}
                             <div class="card-block terabaaphumain">
                                 <div class="lefty">
-                                    <h4 class="card-title">{{y.name}} </h4>
+                                    <h4 class="card-title">{{y.name}} x Karna hai </h4>
                                     <p class="card-text">₹{{y.price}}</p>
                                 </div>
 
@@ -120,7 +167,7 @@
                         <div style="padding-top:50px;"></div>
 
                         {% endfor %}
-                        {% endif %}
+                        {% endif %} -->
                     </div>
                 </div>
             </div>

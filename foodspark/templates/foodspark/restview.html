@@ -108,24 +108,24 @@
                                         <tbody>
                                             {%for z in y %}
                                             <tr>
-                                                <td>{{z.name}}</td>
-                                                <td>{{z.price}}</td>
-                                                <td>
                                                     {% with z.pk|stringformat:"s" as zstr %}
                                                     {% with "food"|add:zstr as foodid %}
                                                     {% with "numfood"|add:zstr as foodipid %}
+                                                <td>{{z.name}}</td>
+                                                <td id="{{foodid}}">{{z.price}}</td>
+                                                <td>
                                                     <button type="button" id= "{{foodid}}" class="btn btn-primary btn-circle decrement">
                                                     <span class="glyphicon glyphicon-minus"></span>
                                                     </button>
                                                     <input type="hidden" name="{{foodid}}" value="0" id="{{foodipid}}" />
                                                     <span class="ordernum" id="{{foodid}}"/> 0 </span>
                                                     <button type="button" id="{{foodid}}" class="btn btn-primary btn-circle increment">
-                                                    {% endwith %}
-                                                    {% endwith %}
-                                                    {% endwith %}
                                                     <span class="glyphicon glyphicon-plus"></span>
                                                     </button>
                                                 </td>
+                                                    {% endwith %}
+                                                    {% endwith %}
+                                                    {% endwith %}
                                             </tr>
                                             {%endfor%}
                                         </tbody>
@@ -139,7 +139,7 @@
                                 <div class="carttable recommend offset8" style="float:right;">
                                     <h4 class="recoh">Cart</h4>
                                     <hr class="liner" />
-                                    Total : ₹<span style="font-size:1.2em;">100</span>
+                                    Total : ₹<span style="font-size:1.2em;" id="totalamount">0</span>
                                     <br />
                                     <br />
                                     <button class="btn btn-primary" type="submit" a href="#">Add to cart</button>
@@ -189,6 +189,9 @@
         var num = parseInt($(".ordernum#"+this.id).html());
         $('.ordernum#'+this.id).html(num+1);
         document.getElementById('num'+this.id).value = num+1;
+        var total = parseInt($('span#totalamount').html());
+        var pr = parseInt($('td#'+this.id).html());
+        $('span#totalamount').html(pr + total)
     });
 
     $('.decrement').click(function(e){
@@ -197,6 +200,9 @@
         {
             $('.ordernum#'+this.id).html(num-1);
             document.getElementById('num'+this.id).value = num-1;
+            var total = parseInt($('span#totalamount').html());
+            var pr = parseInt($('td#'+this.id).html());
+            $('span#totalamount').html(total-pr)
         }
     });
 

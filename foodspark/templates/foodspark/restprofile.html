@@ -8,14 +8,14 @@
     <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="img/logo.ico">
+    <link rel="shortcut icon" href="/static/img/logo.ico">
     <title>Restaurant details Foodspark</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="/static/css/jquery-clockpicker.min.css" rel="stylesheet">
+    <link href="/static/css/agency2.css" rel="stylesheet">
     <link href="/static/css/mystyle.css" rel="stylesheet">
     <link href="/static/css/simple-sidebar.css" rel="stylesheet">
 
@@ -23,7 +23,7 @@
 
 <body>
     <!-- navbar centred text vertically with  line-height-->
-    <nav class="navbar navbar-nav navbar-default navbar-fixed-top" style="line-height:60px;height:60px;">
+    <nav class="navbar navbar-nav navbar-default navbar-fixed-top" style="line-height:60px;height:60px;background-color: #f8f8f8 !important;">
         <div class="container" style="margin:0 !important;">
             <span class="navbar-left" style="font-size:1.2em;"><img src="/static/img/logo.gif" class="logo_bitch"/>   FOODSPARK</span>
 
@@ -36,15 +36,15 @@
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                    <a href="#">
-                        {{restaurant.name}}
+                    <a href="/">
+                        Hello, {{restaurant.name}}
                     </a>
                 </li>
                 <li>
-                    <a href="#">Details</a>
+                    <a href="/details/">Details</a>
                 </li>
                 <li>
-                    <a href="#">Order History</a>
+                    <a href="/resthistory">Order History</a>
                 </li>
                 <li>
                     <a href="#">Update profile</a>
@@ -73,11 +73,11 @@
                         <img src="/static/img/back_rest.jpg" class="cover_photo">
 
                         <div class= "rest_details">
-                            <h1 style="text-align:center;">{{restaurant.name}}</h1>
+                            <h1 style="text-align:center;">Restaurant name</h1>
 
                             <i class="glyphicon glyphicon-map-marker blueicon"></i> : Azad Hall, IIT Kharagpur
                             <p class="rightfloat" style="padding-right:20px;">
-                                <i class="glyphicon glyphicon-phone blueicon"></i> : 123454</p>
+                                <i class="glyphicon glyphicon-earphone blueicon"></i> : 123454</p>
                             <br />
                             <span style="padding-left:200px;">
                                 <i class="glyphicon glyphicon-time blueicon"></i> :10:00 - 22:00
@@ -86,7 +86,84 @@
                                 <i class="glyphicon glyphicon-cutlery blueicon"></i> : Chinese</p>
 
                             <hr class="liner"/>
+                            <div id="terabaaphumain">
 
+                                <div class="foodtable lefty">
+
+                                    {% if menu %}
+                                    {% for x,y in menu.items %}
+                                    <h2>{{x}}</h2>
+                                    <table class="table">
+                                        <thead>
+                                            <tr><b>
+                                                <th>Item Name</th>
+                                                <th>Price</th>
+                                                <th>Remove</th>
+                                            </b></tr>
+                                        </thead>
+                                        <tbody>
+                                                {%for z in y%}
+                                            <form action="/removefooditem/" method="post">
+                                            {%csrf_token%}
+                                            <tr>
+                                                <input type="hidden" name="foodid" value={{z.pk}} />
+                                                <td>{{z.name}}</td>
+                                                <td>{{z.price}}</td>
+                                                <td>
+                                                    <button type="submit" id="order1" class="btn btn-primary btn-circle decrement">
+                                                    <span class="glyphicon glyphicon-minus"></span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            </form>
+                                                {%endfor%}
+                                            
+                                        </tbody>
+                                    </table>
+                                    {%endfor%}
+                                    {%endif%}
+
+                                    
+                                </div>
+
+
+                                <div class="carttable recommend offset8" style="float:right;padding-bottom:20px !important;">
+                                    <h4 class="recoh">New Item</h4>
+                                    <hr class="liner" />
+                                    <button class="btn btn-primary"  data-toggle="modal" data-target="#addmenu">
+                                        Add to menu
+                                    </button>
+
+                                    <div id="addmenu" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom_modalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <form action="/addfooditem/" method="post" name="newMenuForm" class="signup" novalidate>
+                                                    {%csrf_token%}
+                                                        <p class="title">Enter Item Details</p>
+                                                        <input type="text" name="name" placeholder="Name" required autofocus />
+                                                        <i class="fa fa-user"></i>
+                                                        <!--<input type="text" placeholder="Lastname" equired autofocus/>
+                                                        <i class="fa fa-user"></i>-->
+                                                        <input type="text" name="cuisine" placeholder="Cuisine" requuired autofocus/>
+                                                        <i class="fa fa-user"></i>
+                                                        <!-- <input type="text" name="course" placeholder="Course" required autofocus/>
+                                                        <i class="fa fa-user"></i> -->
+                                                        <input type="number" name="price" min="0" placeholder="Price" required autofocus/>
+                                                        <i class="fa fa-user"></i>
+                                                        <button class="btn btn-lg btn-success btn-block" type="submit" a href="#">
+                                                            <i class="spinner"></i>
+                                                            <span class="state">Create Item</span>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
 
                         </div>
 

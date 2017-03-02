@@ -32,6 +32,7 @@
 
             <!-- Search bar -->
             <form class="input-group" style="height: 100%;" action="/search/" method="get">
+            {%csrf_token%}
                 <div class="input-group-btn search-panel">
                     <button type="button" class="btn btn-outline-secondary dropdown-toggle navbar-btn usersearchbtn1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                         <span id="search_concept" >All</span></button>

@@ -38,18 +38,18 @@
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                    <a href="#">
-                        Hello, rest # name
+                    <a href="/">
+                        Hello, {{restaurant.name}}
                     </a>
                 </li>
                 <li>
                     <a href="/details/">Details</a>
                 </li>
                 <li>
-                    <a href="/history/">Order History</a>
+                    <a href="/resthistory/">Order History</a>
                 </li>
                 <li>
-                    <a href="/history/">Update profile</a>
+                    <a href="/restprofile/">Update profile</a>
                 </li>
                 <li>
                     <a href="/logout/">Log out</a>
@@ -75,22 +75,36 @@
 
                         <h1 style="padding-left: 20px;">Order History</h1>
                         <hr class="liner"/>
-
+                        {% if foods %}
+                        {% for x,y in customer.items %}
                         <!-- Yes, one card is one order-->
                         <div class="card">
                             <div class="card-header">
-                            Delivered
+                            {% if x.deliverystatus == 'p' %}
+                                Pending
+                            {% endif %}
+                            {% if x.deliverystatus == 'd' %}
+                                Delivered
+                            {% endif %}
                                 <span style="float:right;">
-                                <i class="glyphicon glyphicon-map-marker blueicon ordercard"></i> User address
-                                <i class="glyphicon glyphicon-time blueicon ordercard"></i> Date
-                                <i class="glyphicon glyphicon-user blueicon ordercard"></i> User_name
+                                <i class="glyphicon glyphicon-map-marker blueicon ordercard"></i> {{y.address}}
+                                <i class="glyphicon glyphicon-time blueicon ordercard"></i> {{x.ordertime}}
+                                <i class="glyphicon glyphicon-user blueicon ordercard"></i> {{y.name}}
                                 </span>
                             </div>
                             <div class="card-block terabaaphumain">
+                                {%for z,k in foods.items%}
+                                {%if x.pk == z.pk%}
                                 <div class="lefty">
-                                    <h4 class="card-title">Food item x Quantity, </h4>
-                                    <p class="card-text">Total</p>
+                                <h4 class="card-title">
+                                {%for i,j in k.items%}
+                                    {{i.name}} x {{j}}  , 
+                                {%endfor%}
+                                </h4>
+                                    <p class="card-text" style="padding-bottom: 10px;">Total = ₹{{x.amount}}</p>
                                 </div>
+                                {%endif%}
+                                {%endfor%}
 <!--                                 <div class="righty">
                                     <button class="btn btn-primary confirmation"><i class="glyphicon glyphicon-ok blueicon"></i> Confirm
                                     </button>
@@ -101,6 +115,8 @@
                             </div>
                             <div style="padding-top:60px;"></div>
                         </div>
+                        {% endfor %}
+                        {% endif %}
 
                         <div style="padding-top:50px;"></div>
 
@@ -160,3 +176,4 @@
 </body>
 
 </html>
+

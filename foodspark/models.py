@@ -110,6 +110,10 @@ class Order(models.Model):
 			items.append(FoodItem.objects.get(pk=int(x)))
 		return items
 
+	def getqty(self):
+		myl = self.foodqty.split(",")
+		return myl
+
 class Cart(models.Model):
 	customer = models.ForeignKey(Customer,on_delete=models.CASCADE)
  	fooditem = models.ForeignKey(FoodItem,on_delete=models.CASCADE)

@@ -13,6 +13,12 @@ urlpatterns = [
     url(r'^cart/?$',views.cart,name='cart'),
     url(r'^history/?$',views.history,name='history'),
     url(r'^addtocart/?$',views.saveToCart,name='saveToCart'),
+    url(r'^restprofile/?$',views.restprofile,name='restprofile'),
+    url(r'^resthistory/?$',views.restaurantOrderHistory,name='resthistory'),
+    url(r'^delivered/?$',views.delivered,name='delivered'),
+    url(r'^addfooditem/?$',views.addfooditem,name='addfooditem'),
+    url(r'^removefooditem/?$',views.removefooditem,name='removefooditem'),
+
     # url(r'^makepaymenet/?$'.views.makepaymenet,name='makepaymenet'),
     url(r'^restaurant/(?P<restname>[a-zA-Z0-9\s]+)/?$',views.restview,name='restview'),
 ]
