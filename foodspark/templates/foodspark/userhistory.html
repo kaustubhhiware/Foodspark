@@ -84,6 +84,7 @@
                             Total : ₹{{x.amount}}
                                 <span style="float:right;">
                                 <i class="glyphicon glyphicon-refresh blueicon ordercard"></i> In Progress
+                                <i class="glyphicon glyphicon-calendar blueicon ordercard"></i> {{x.orderdate}}
                                 <i class="glyphicon glyphicon-time blueicon ordercard"></i> {{x.ordertime}}
                                 <!-- <i class="glyphicon glyphicon-time blueicon ordercard"></i> Date -->
                                 <i class="glyphicon glyphicon-cutlery blueicon ordercard"></i> {{z.name}}
@@ -107,15 +108,16 @@
                         <div style="padding-top:50px;"></div>
                         {%endfor%}
                         {%endif%}
-                        
+
 
                         {% if history_rest %}
-                        {% for x,z in history_rest.items %}
+                        {% for x,z in history_rest.items%}
                          <div class="card">
                             <div class="card-header">
                             Total : ₹{{x.amount}}
                                 <span style="float:right;">
                                 <i class="glyphicon glyphicon-ok blueicon ordercard"></i> Delivered
+                                <i class="glyphicon glyphicon-calendar blueicon ordercard"></i> {{x.orderdate}}
                                 <i class="glyphicon glyphicon-time blueicon ordercard"></i> {{x.ordertime}}
                                 <i class="glyphicon glyphicon-cutlery blueicon ordercard"></i> {{z.name}}
                                 </span>
@@ -139,7 +141,7 @@
                         <div style="padding-top:50px;"></div>
 
                         {% endfor %}
-                        {% endif %}                         
+                        {% endif %}
 
                         <!-- {% if history %}
                         {% for x,z in history.items %}

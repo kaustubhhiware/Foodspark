@@ -73,17 +73,17 @@
                         <img src="/static/img/back_rest.jpg" class="cover_photo">
 
                         <div class= "rest_details">
-                            <h1 style="text-align:center;">Restaurant name</h1>
+                            <h1 style="text-align:center;">{{restaurant.name}}</h1>
 
-                            <i class="glyphicon glyphicon-map-marker blueicon"></i> : Azad Hall, IIT Kharagpur
+                            <i class="glyphicon glyphicon-map-marker blueicon"></i> : {{restaurant.address}} , {{restaurant.city}}
                             <p class="rightfloat" style="padding-right:20px;">
-                                <i class="glyphicon glyphicon-earphone blueicon"></i> : 123454</p>
+                                <i class="glyphicon glyphicon-earphone blueicon"></i> : {{restaurant.phone}}</p>
                             <br />
-                            <span style="padding-left:200px;">
+                            <!-- <span style="padding-left:200px;">
                                 <i class="glyphicon glyphicon-time blueicon"></i> :10:00 - 22:00
-                            </span>
+                            </span> -->
                             <p class="rightfloat">
-                                <i class="glyphicon glyphicon-cutlery blueicon"></i> : Chinese</p>
+                                <i class="glyphicon glyphicon-cutlery blueicon"></i> : {{restaurant.cuisine}}</p>
 
                             <hr class="liner"/>
                             <div id="terabaaphumain">
@@ -117,13 +117,13 @@
                                             </tr>
                                             </form>
                                                 {%endfor%}
-                                            
+
                                         </tbody>
                                     </table>
                                     {%endfor%}
                                     {%endif%}
 
-                                    
+
                                 </div>
 
 

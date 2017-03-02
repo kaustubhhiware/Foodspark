@@ -87,6 +87,7 @@
                             {% endif %}
                                 <span style="float:right;">
                                 <i class="glyphicon glyphicon-map-marker blueicon ordercard"></i> {{y.address}}
+                                <i class="glyphicon glyphicon-calendar blueicon ordercard"></i> {{x.orderdate}}
                                 <i class="glyphicon glyphicon-time blueicon ordercard"></i> {{x.ordertime}}
                                 <i class="glyphicon glyphicon-earphone blueicon ordercard"></i> {{y.name}}
                                 </span>
@@ -97,7 +98,7 @@
                                 <div class="lefty">
                                 <h4 class="card-title">
                                 {%for i,j in k.items%}
-                                    {{i.name}} x {{j}}  , 
+                                    {{i.name}} x {{j}}  ,
                                 {%endfor%}
                                 </h4>
                                     <p class="card-text" style="padding-bottom: 10px;">Total = ₹{{x.amount}}</p>
@@ -115,9 +116,9 @@
                         {% endfor %}
                         {% endif %}
 
-                       
 
-                      
+
+
                     </div>
                 </div>
             </div>

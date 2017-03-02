@@ -13,7 +13,7 @@ class Restaurant(models.Model):
 	password = models.CharField(max_length=100)
 	name = models.CharField(max_length=200)
 	address = models.TextField()
-	RES_TYPE = ( 
+	RES_TYPE = (
 		('B','Bar'),
 		('R','Restaurant'),
 		('C','Cafe')
@@ -28,10 +28,10 @@ class Restaurant(models.Model):
 	# 	('5','5')
 	# )
 	# rating = models.CharField(null = True,max_length=1,choices = RATING)
-	# countrating = models.IntegerField(default = 0) 
+	# countrating = models.IntegerField(default = 0)
 	city = models.CharField(max_length = 100,null = True)
 	phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.") #############look into regex
-	phone = models.CharField(validators=[phone_regex],max_length=15,blank = True) 
+	phone = models.CharField(validators=[phone_regex],max_length=15,blank = True)
 	#image = models.ImageField(default = '/home/projjal/Projects/Foodspark/foodspark/static/img')
 	imgurl = models.CharField(max_length=1000,null=True)
 	 ############################################################
@@ -89,6 +89,7 @@ class Order(models.Model):
  	foodqty = models.CharField(max_length = 500,validators=[validate_comma_separated_integer_list],null=True)
  	amount = models.IntegerField(default = 0)
 	ordertime = models.TimeField()
+	orderdate = models.DateField(auto_now_add=True)	
 	DSTATUS = (
 		('p','Pending'),
 		('d','Delivered')
