@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^signup/?$', views.signup, name='signup'),
     url(r'^search/?$',views.search,name='search'),
     url(r'^details/?$',views.details,name='details'),
+    url(r'^savedetails/?$',views.editDetails,name='editDetails'),
     url(r'^cart/?$',views.cart,name='cart'),
     url(r'^history/?$',views.history,name='history'),
     url(r'^addtocart/?$',views.saveToCart,name='saveToCart'),

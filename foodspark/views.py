@@ -125,32 +125,21 @@ def editDetails(request):
 			context = {
 				'customer':customer,
 				}
-			email = request.POST.get('email')
 			name = request.POST.get('name')
 			phone = request.POST.get('phone')
 			address = request.POST.get('address')
 			city = request.POST.get('city')
-			if email == customer.email:
-				customer.name = name
-				customer.address = address
-				customer.city	= city
-				customer.phone = phone
-				customer.email = email
-			elif Customer.objects.filter(email=email).exist():
-				messages.error(request,'Email Already Taken :(')
-				return render(request,'foodspark/userdetails.html',context)
-			else :
-				customer.email = email
-				customer.name = name
-				customer.address = address
-				customer.city	= city
-				customer.phone = phone
+			
+			customer.name = name
+			customer.address = address
+			customer.city	= city
+			customer.phone = phone
 			customer.save()
 			messages.success(request,'Successfully saved :)')
 			return render(request,'foodspark/userdetails.html',context)
 		elif request.session['type'] == 'restaurant':
 			restaurant = Restaurant.objects.get(email=request.session['id'])
-			context - {
+			context = {
 				'restaurant' : restaurant,
 			}
 			email = request.POST.get('email')
@@ -160,24 +149,13 @@ def editDetails(request):
 			res_type = request.POST.get('res_type')
 			cuisine = request.POST.get('cuisine')
 			city = request.POST.get('city')
-			if email == restaurant.email:
-				restaurant.phone = phone
-				restaurant.address = address
-				restaurant.name = name
-				restaurant.res_type = res_type
-				restaurant.cuisine =cuisine
-				restaurant.city = city
-			elif Restaurant.objects.filter(email=email).exist():
-				messages.error(request,'Email Already Taken :(')
-		 		return render(request,'foodspark/userdetails.html',context)
-			else:
-				restaurant.email = email
-				restaurant.phone = phone
-				restaurant.address = address
-				restaurant.name = name
-				restaurant.res_type = res_type
-				restaurant.cuisine =cuisine
-				restaurant.city = city
+			
+			restaurant.phone = phone
+			restaurant.address = address
+			restaurant.name = name
+			restaurant.res_type = res_type
+			restaurant.cuisine =cuisine
+			restaurant.city = city
 			restaurant.save()
 			messages.success(request,'Successfully saved :)')
 			return render(request,'foodspark/userdetails.html',context)
