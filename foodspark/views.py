@@ -9,8 +9,8 @@ from django.core.exceptions import *
 import datetime
 
 ### TODO
-# check 'id' in session for all views
-# remove email edit field
+# check 'id' in session for all views - Done
+# remove email edit field - Showing uneditaable
 # error messages in html
 # recommended restaurants
 # view orders in user history in descending order
@@ -84,7 +84,7 @@ def login(request):
 	elif request.method == 'GET':
 		return render(request,'foodspark/login.html')
 
-def signup(request): 
+def signup(request):
 	if request.method == 'POST':
 		email = request.POST.get('email')
 		name = request.POST.get('name')
@@ -129,11 +129,15 @@ def editDetails(request):
 			phone = request.POST.get('phone')
 			address = request.POST.get('address')
 			city = request.POST.get('city')
-			
-			customer.name = name
-			customer.address = address
-			customer.city	= city
-			customer.phone = phone
+
+			if name!="":
+				customer.name = name
+			if address!="":
+				customer.address = address
+			if city!="":
+				customer.city	= city
+			if phone!="":
+				customer.phone = phone
 			customer.save()
 			messages.success(request,'Successfully saved :)')
 			return render(request,'foodspark/userdetails.html',context)
@@ -142,23 +146,27 @@ def editDetails(request):
 			context = {
 				'restaurant' : restaurant,
 			}
-			email = request.POST.get('email')
+			name = request.POST.get('name')
 			phone = request.POST.get('phone')
 			address = request.POST.get('address')
-			name = request.POST.get('name')
 			res_type = request.POST.get('res_type')
 			cuisine = request.POST.get('cuisine')
 			city = request.POST.get('city')
-			
-			restaurant.phone = phone
-			restaurant.address = address
-			restaurant.name = name
-			restaurant.res_type = res_type
-			restaurant.cuisine =cuisine
-			restaurant.city = city
+
+			if phone!="":
+				restaurant.phone = phone
+			if address!="":
+				restaurant.address = address
+			if name!="":
+				restaurant.name = name
+			# restaurant.res_type = res_type
+			if cuisine!="":
+				restaurant.cuisine =cuisine
+			if city!="":
+				restaurant.city = city
 			restaurant.save()
 			messages.success(request,'Successfully saved :)')
-			return render(request,'foodspark/userdetails.html',context)
+			return render(request,'foodspark/restdetails.html',context)
 
 	elif request.method == 'GET':
 		return render(request,'foodspark/details.html')
@@ -190,7 +198,7 @@ def changePassword(request):
 
 	elif request.method == 'GET':
 		return render(request,'foodspark/changePassword.html')
-	
+
 
 def search(request):
 	searchkey = request.GET.get('search')
@@ -314,7 +322,7 @@ def cart(request):
 						cart[x.fooditem.resid].append(x)
 					except KeyError:
 						cart[x.fooditem.resid] = [x]
-					
+
 			if not cart:
 				messages.info(request,"Your cart is currently empty")
 			context = {
