@@ -19,10 +19,12 @@ import datetime
 def home(request):
 	if 'id' in request.session.keys():
 		if request.session['type'] == 'customer':
+			foodlist = FoodItem.objects.all().order_by('-ordercount')[:5]
 			restaurants = Restaurant.objects.order_by('name')
 			context = {
 				'customer':Customer.objects.get(email=request.session['id']),
-				'restaurants' : restaurants
+				'restaurants' : restaurants,
+				'foodlist' : foodlist,
 			}
 			return render(request,'foodspark/userhome.html',context)
 		elif request.session['type'] == 'restaurant':
@@ -439,6 +441,10 @@ def saveToCart(request):
 				'cart' : cart,
 				'amount' : amount
 		}
+		for x,y in cart.iteritems():
+			for z in y:
+				z.fooditem.ordercount = z.fooditem.ordercount + z.foodqty
+				z.fooditem.save()
 		return render(request,"foodspark/ordercart.html",context)
 	else:
 		return render(request,"foodspark/login.html")

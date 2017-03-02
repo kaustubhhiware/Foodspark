@@ -78,7 +78,7 @@ class FoodItem(models.Model):
 	course = models.CharField(max_length=1,choices=COURSE)
 	price = models.IntegerField()
 	availability_time = models.TimeField()
-	# ordercount = models.IntegerField(default = 0)
+	ordercount = models.IntegerField(default = 0)
 	# image = models.ImageField(null = True) ###########################################################
 	# group = models.ForeignKey()
 
