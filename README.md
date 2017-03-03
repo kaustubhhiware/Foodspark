@@ -1,24 +1,31 @@
 # Foodspark
-DBMS project for online Food Ordering system
 
-Standard reference : https://tutorial.djangogirls.org/en/
+![logo](front-end/img/logo.ico)
 
-# Frontend
-ToDo: Needs logo!
+DBMS project for online Food Ordering system.
 
-**login.html** is the landing page. According to the user, redirect to **userhome.html** or
-**resthome.html**
+Deployed on http://foodkgp.pythonanywhere.com
 
-### Customer :
-* **userdetails.html** for changing details.
-* **usercart.html** for cart.
-* **userhistory.html** for userhistory.
+![Screenshot](Screenshot.png)
 
-### Restaurant :
-* **restdetails.html** for changing details.
-* **restprofile.html** for adding new items to the menu and viewing current.
-* **resthistory.html** for userhistory.
+The frontend specifically can be found in `front-end/` folder.
 
-Completed : login, home(s), details
+To run the server, run the following command:
 
-ToDo : restprofile, user and rest side. Rest are generated dynamically.
+    python manage.py runserver
+
+## Features
+* Supports Restaurant and Customer login and signup.
+* User can enter and edit details.
+* User can place orders from multiple restaurants.
+* Support search functionality from user side.
+* A restaurant can update their menu and add new items to their menu.
+* Both user and restaurant can check their history logs.
+* Pretty darn good UI.
+
+## Members
+* Sourav Pal [@sourav-roni](https://github.com/sourav-roni)
+* Sayan Mandal [@sayanmandal](https://github.com/sayanmandal)
+* Projjal Chanda [@Projjal](https://github.com/projjal)
+* Aditya Bhagwat [@Eraseread](https://github.com/Eraseread)
+* Kaustubh Hiware [@kaustubhhiware](https://github.com/kaustubhhiware)
