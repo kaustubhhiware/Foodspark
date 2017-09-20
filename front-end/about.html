@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="img/logo.ico">
+    <title>About Foodspark</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/agency2.css" rel="stylesheet">
+    <link href="css/mystyle.css" rel="stylesheet">
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+
+    <style type="text/css">
+
+	.about-p {
+        font-size: 1.2em;
+        font-weight:500;
+        margin: auto;
+        padding: 20px;
+        padding-bottom: 0 !important;
+        text-align:center;
+        width: 75%;
+    }
+
+    </style>
+
+</head>
+
+<body>
+    <!-- navbar centred text vertically with  line-height-->
+    <nav class="navbar navbar-nav navbar-default navbar-fixed-top" style="line-height:60px;height:60px;background-color: #f8f8f8 !important;">
+        <div class="container" style="margin:0 !important;">
+            <span class="navbar-left" style="font-size:1.2em;"><img src="img/logo.gif" class="logo_bitch"/>   FOODSPARK</span>
+
+        </div>
+    </nav>
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="/home/">
+                        Hello, {{customer.name}}
+                    </a>
+                </li>
+                <li>
+                    <a href="/details/">Details</a>
+                </li>
+                <li>
+                    <a href="/history/">Order History</a>
+                </li>
+                <li>
+                    <a href="/cart/">Order Cart</a>
+                </li>
+                <li>
+                    <a href="/logout/">Log out</a>
+                </li>
+                <li>
+                    <a href="#">About</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <div style="margin-top:60px;">
+
+        </div>
+<!--
+        <a href="#menu-toggle" class="btn btn-default fa-bars" id="menu-toggle">
+             <span class="glyphicon glyphicon-menu-hamburger"></span>
+        </a>-->
+        <!-- Page Content -->
+        <div id="page-content-wrapper" style="padding:0; margin:0;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12" style="padding:0; margin:0;">
+                        <!-- <img src="img/back_rest.jpg" class="cover_photo"> -->
+
+                        <div class= "rest_details">
+                            <h1 style="text-align:center;">About</h1>
+
+                            <hr class="liner"/>
+                            <div id="terabaaphumain">
+                                <p class="about-p">
+                                    This project was developed as a Database management project by <br />
+                                    <a href="https://github.com/kaustubhhiware">Kaustubh</a>, <a href="https://github.com/projjal">Projjal</a>, <a href="https://github.com/sayanmandal">Sayan</a>, <a href="https://github.com/sourav-roni">Sourav</a> and <a href="https://github.com/https://github.com/Eraseread">Aditya</a>.
+                                    <br /><br />
+                                    This website provides user and restaurant sign up. <br />
+                                    The user can see various menus provided by the restaurants and order anything.
+                                    <br /><br />
+                                    Once a restaurant signs up, they have the option to update their own menu.<br />
+                                    Customer orders shows up on the dashboard, and can be ticked off once delivered.
+                                    <br /><br />
+                                    This website is a stand-alone complete product, and can be used commercially<br />
+                                    once some payment authentication is set up for customer order.
+                                    <br /><br />
+                                    The source code is available on <a href="https://github.com/kaustubhhiware/FoodSpark" target="_blank">GitHub</a>
+                                    <br /><br />
+                                    <a class="github-button" href="https://github.com/kaustubhhiware/foodspark" data-size="large" data-show-count="true" aria-label="Star kaustubhhiware/foodspark on GitHub">Star</a>
+                                    <!-- <div class="github-card" data-github="kaustubhhiware/FoodSpark" data-width="400" data-height="317" data-theme="medium"></div> -->
+                                </p>
+                            </div>
+
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/gh/lepture/github-cards@latest/jsdelivr/widget.js"></script> -->
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery-clockpicker.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+
+    var input = $('.inputtime');
+    input.clockpicker({
+        autoclose: true
+    });
+
+    // Manual operations for time
+    $('.time_switch').click(function(e){
+        // Have to stop propagation here
+        e.stopPropagation();
+        input.clockpicker('show')
+                .clockpicker('toggleView', 'hours');
+    });
+
+    </script>
+
+</body>
+
+</html>

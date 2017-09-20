@@ -22,4 +22,5 @@ urlpatterns = [
 
     # url(r'^makepaymenet/?$'.views.makepaymenet,name='makepaymenet'),
     url(r'^restaurant/(?P<restname>[a-zA-Z0-9\s]+)/?$',views.restview,name='restview'),
+    url(r'^about/?$',views.about,name='about'),
 ]

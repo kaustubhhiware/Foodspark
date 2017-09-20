@@ -8,13 +8,6 @@ from django.contrib import messages
 from django.core.exceptions import *
 import datetime
 
-### TODO
-# check 'id' in session for all views - Done
-# remove email edit field - Showing uneditaable
-# error messages in html
-# recommended restaurants
-# view orders in user history in descending order
-###
 
 def home(request):
 	if 'id' in request.session.keys():
@@ -479,3 +472,16 @@ def removefooditem(request):
 		return redirect('/restprofile/')
 	else:
 		return render(request,"foodspark/login.html")
+
+def about(request):
+	if 'id' in request.session.keys():
+		if request.session['type'] == 'restaurant':
+			user = Restaurant.objects.get(email=request.session['id'])
+		else:
+			user = Customer.objects.get(email=request.session['id'])
+		context = {
+			'user': user,
+		}
+		return render(request,"foodspark/about.html",context)
+	else:
+		return render(request,"foodspark/about.html")
