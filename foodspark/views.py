@@ -78,7 +78,7 @@ def login(request):
 
 	elif request.method == 'GET':
 		return render(request,'foodspark/login.html')
-
+# signup function
 def signup(request):
 	if request.method == 'POST':
 		email = request.POST.get('email')
@@ -103,7 +103,7 @@ def signup(request):
 
 	if request.method == 'GET':
 		return render(request,'foodspark/login.html')
-
+# logout function
 def logout(request):
 	try:
 		del request.session['id']
